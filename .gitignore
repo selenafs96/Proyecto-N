@@ -1,0 +1,34 @@
+# =========================================
+# GENERAL / OS
+# =========================================
+.DS_Store
+Thumbs.db
+*.suo
+*.user
+*.userprefs
+.vs/
+
+# =========================================
+# BACKEND (.NET)
+# =========================================
+[Bb]in/
+[Oo]bj/
+*.log
+*cache*
+project.lock.json
+project.fragment.lock.json
+artifacts/
+.dotnet/
+
+# =========================================
+# FRONTEND (Vite / React / npm)
+# =========================================
+node_modules/
+dist/
+build/
+.env*.local
+
+# =========================================
+# DOCKER / ENVIRONMENT
+# =========================================
+.env
