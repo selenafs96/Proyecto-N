@@ -1,8 +1,0 @@
-{
-  "recommendations": [
-    "ms-dotnettools.csdevkit",
-    "joskreativ.csharp-extensions",
-    "eamodio.gitlens",
-    "esbenp.prettier-vscode"
-  ]
-}
