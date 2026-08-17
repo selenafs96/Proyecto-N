@@ -27,6 +27,7 @@ node_modules/
 dist/
 build/
 .env*.local
+.next/
 
 # =========================================
 # DOCKER / ENVIRONMENT
