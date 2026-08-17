@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "usernamehw.errorlens",
+    "dbaeumer.vscode-eslint",
+    "midudev.better-svg",
+    "waderyan.gitblame",
+    "yoavbls.pretty-ts-errors",
+    "sonarsource.sonarlint-vscode",
+    "bradlc.vscode-tailwindcss",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "kisstkondoros.vscode-gutter-preview"
+  ]
+}
