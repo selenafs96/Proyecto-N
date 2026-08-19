@@ -1,15 +1,26 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// Añadimos servicios de Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Añadimos los servicios de OpenAPI
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Activar el middleware de Swagger y de OpenAPI solo en desarrollo
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    // Esto habilita la interfaz web gráfica (/swagger)
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "ProyectoNApi v1"); // // Conecta la UI con la ruta del JSON generado por .NET, ProyectoNApi v1 es el nombre que aparecerá en el desplegable del selector de versiones
+        options.RoutePrefix = "swagger"; // La UI estará en https://localhost:7277/swagger
+    });
+
+     app.MapOpenApi(); // Mapea el endpoint de OpenAPI
 }
 
 app.UseHttpsRedirection();
