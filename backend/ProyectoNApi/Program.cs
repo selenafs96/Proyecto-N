@@ -7,6 +7,18 @@ builder.Services.AddSwaggerGen();
 // Añadimos los servicios de OpenAPI
 builder.Services.AddOpenApi();
 
+// Añadimos política de CORS para permitir solicitudes desde el frontend de Next.js
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowNextJs",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000", "https://localhost:3000") // El puerto de tu Next.js
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Activar el middleware de Swagger y de OpenAPI solo en desarrollo
@@ -43,6 +55,9 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+// Activamos CORS después del build
+app.UseCors("AllowNextJs");
 
 app.Run();
 
