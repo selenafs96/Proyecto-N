@@ -22,9 +22,15 @@ El proyecto se encuentra en desarrollo activo.
 
 <img width="1440" height="1024" alt="Inicio de Sesión" src="https://github.com/user-attachments/assets/6738063e-deb8-4ee5-9a68-9f50253516ff" />
 
+
+
 <img width="1440" height="1152" alt="Home" src="https://github.com/user-attachments/assets/be683751-666a-4b63-98fc-65c7bf736a86" />
 
+
+
 <img width="1440" height="886" alt="Lista de pacientes" src="https://github.com/user-attachments/assets/7c600989-fd8a-4f53-ad12-3a68c3519e86" />
+
+
 
 <img width="1440" height="1452" alt="Ficha de paciente - ANTROPOMETRÍA" src="https://github.com/user-attachments/assets/2a63095b-6c63-43b0-b738-ddd1461fcb0b" />
 
