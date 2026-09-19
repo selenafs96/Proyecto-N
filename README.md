@@ -17,3 +17,9 @@ El proyecto se encuentra en desarrollo activo.
 - Cliente HTTP: Axios
 - Fuente de datos nutricionales: Alimentos básicos de CIQUAL (base de datos francesa) y alimentos procesados/envasados de Open Food Facts.
 - Seguridad: JWT (JSON Web Tokens)
+
+## Apariencia:
+
+<img width="1440" height="1024" alt="Inicio de Sesión" src="https://github.com/user-attachments/assets/6738063e-deb8-4ee5-9a68-9f50253516ff" />
+
+
