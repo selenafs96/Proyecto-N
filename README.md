@@ -15,24 +15,25 @@ El proyecto se encuentra en desarrollo activo.
 - Base de datos relacional: PostgreSQL
 - Entorno: Docker para la instancia PostgreSQL
 - Cliente HTTP: Axios
-- Fuente de datos nutricionales: Alimentos básicos de CIQUAL (base de datos francesa) y alimentos procesados/envasados de Open Food Facts.
+- Fuente de datos nutricionales: Alimentos básicos de BEDCA y alimentos procesados/envasados de Open Food Facts.
 - Seguridad: JWT (JSON Web Tokens)
 
-## Apariencia:
+## Interfaz:
 
-<img width="1440" height="1024" alt="Inicio de Sesión" src="https://github.com/user-attachments/assets/6738063e-deb8-4ee5-9a68-9f50253516ff" />
+<img width="1440" height="1024" alt="Inicio de Sesión" src="https://github.com/user-attachments/assets/85ccfcc1-cf20-4801-9cf2-9282f6d4ef6f" />
+
+<img width="1440" height="1152" alt="Home" src="https://github.com/user-attachments/assets/5306ae34-ef62-4fd3-9314-bb5ef120e934" />
+
+<img width="1440" height="1452" alt="Ficha de paciente - ANTROPOMETRÍA" src="https://github.com/user-attachments/assets/9b7ac02a-1510-4214-ae70-2ed7889775ac" />
+
+<img width="1440" height="1722" alt="Ficha de paciente - HISTORIAL DE CONSULTAS" src="https://github.com/user-attachments/assets/aaeac2a0-0623-40fd-a407-d53f42c0a663" />
+
+<img width="1440" height="2421" alt="Ficha de paciente - PLAN NUTRICIONAL" src="https://github.com/user-attachments/assets/5205d9d7-e780-4e92-b2a4-eb13a3b14821" />
 
 
 
-<img width="1440" height="1152" alt="Home" src="https://github.com/user-attachments/assets/be683751-666a-4b63-98fc-65c7bf736a86" />
 
 
-
-<img width="1440" height="886" alt="Lista de pacientes" src="https://github.com/user-attachments/assets/7c600989-fd8a-4f53-ad12-3a68c3519e86" />
-
-
-
-<img width="1440" height="1452" alt="Ficha de paciente - ANTROPOMETRÍA" src="https://github.com/user-attachments/assets/2a63095b-6c63-43b0-b738-ddd1461fcb0b" />
 
 
 
