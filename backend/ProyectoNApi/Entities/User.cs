@@ -10,8 +10,7 @@ public class User
     public required string Name { get; set; }
     public required string LastName { get; set; }
     public required string Email { get; set; }
-    public required string Password { get; set; }
     public required string PhoneNumber { get; set; }
-    public string? Photo_Url { get; set; }
+    public string? PhotoUrl { get; set; }
     public required string Role { get; set; }
 }
