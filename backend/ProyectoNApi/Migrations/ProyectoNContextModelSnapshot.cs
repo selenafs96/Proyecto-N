@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using ProyectoNApi.Context;
 
 #nullable disable
 
@@ -44,19 +45,11 @@ namespace ProyectoNApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Photo_Url")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
+                    b.Property<string>("PhotoUrl")
                         .HasColumnType("text");
 
                     b.HasKey("User_Id");

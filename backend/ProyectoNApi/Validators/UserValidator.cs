@@ -23,7 +23,6 @@ public class UserValidator : AbstractValidator<User>
 
         RuleFor(u => u.PhotoUrl).MaximumLength(2048).WithMessage("URL demasiado larga.");
 
-        RuleFor(u => u.Role).NotEmpty().WithMessage("El rol  no puede quedar vacío");
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using System.ComponentModel.DataAnnotations;
 
@@ -12,5 +12,4 @@ public class User
     public required string Email { get; set; }
     public required string PhoneNumber { get; set; }
     public string? PhotoUrl { get; set; }
-    public required string Role { get; set; }
 }
