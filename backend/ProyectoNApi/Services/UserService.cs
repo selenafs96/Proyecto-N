@@ -6,7 +6,7 @@ namespace ProyectoNApi.Services
 {
     public interface IUserService
     {
-        Task<UserDto> GetUserById(int id);
+        Task<UserDto?> GetUserById(int id);
     }
     public class UserService : IUserService
     {
@@ -18,9 +18,14 @@ namespace ProyectoNApi.Services
             _context = context;
         }
 
-        public async Task<UserDto> GetUserById(int id)
+        public async Task<UserDto?> GetUserById(int id)
         {
             var user = await _context.User.FirstOrDefaultAsync(u => u.User_Id == id);
+
+            if (user == null)
+            {
+                return null;
+            }
 
             var userDto = new UserDto
             {
