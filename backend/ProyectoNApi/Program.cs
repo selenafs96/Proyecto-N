@@ -1,41 +1,60 @@
+using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
+using FluentValidation;
+
+using ProyectoNApi.Context;
+using ProyectoNApi.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+builder.Services.AddDbContext<ProyectoNContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUserService, UserService>();
+
+// Add OpenAPI services
 builder.Services.AddOpenApi();
+
+// Add CORS policy to allow frontend Next.js requests 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowNextJs",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000", "https://localhost:3000") // My Next.js port
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
+// Add Validators
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware from Scalar and OpenAPI only in Development
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+
+    app.MapScalarApiReference(options =>
+    {
+        options
+            .WithTitle("ProyectoNApi")
+            .WithTheme(ScalarTheme.Mars); // Puedes elegir temas molones
+    });
+
+     app.MapOpenApi(); // Maps the OpenAPI endpoint
 }
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+// Activation of CORS after build
+app.UseCors("AllowNextJs");
+app.MapControllers();
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+
