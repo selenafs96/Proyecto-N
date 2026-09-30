@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
+using ProyectoNApi.Entities;
+
 namespace ProyectoNApi.Context
 {
     public class ProyectoNContext : DbContext

@@ -30,6 +30,7 @@ builder.Services.AddCors(options =>
 
 // Add Validators
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
