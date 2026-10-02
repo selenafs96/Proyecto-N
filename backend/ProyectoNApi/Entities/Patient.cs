@@ -32,8 +32,12 @@ namespace ProyectoNApi.Entities
         public ICollection<PatientTreatment>? Treatments { get; set; }
         public ICollection<AnthropometricMeasurement>? AnthropometricMeasurements { get; set; }
         public ICollection<Appointment>? Appointments { get; set; }
-        //Tabla relación entre Patient y User
+        //Relationship table between Patient y User
         public ICollection<PatientUser> PatientUsers { get; set; } = new List<PatientUser>();
+        public ICollection<PatientPathology>? PatientPathologies { get; set; }
+        public ICollection<NutritionalPlan>? NutritionalPlans { get; set; }
+                // Relationship table between Food and Patient
+        public ICollection<Restriction> Restrictions { get; set; } = new List<Restriction>();
 
         //TODO en el validador de Patient, hacer que la lista PatientUsers no pueda estar vacía (siempre tiene que tener un nutricionista asociado)
 
