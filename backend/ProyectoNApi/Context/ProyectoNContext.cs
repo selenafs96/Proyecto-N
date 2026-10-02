@@ -15,8 +15,18 @@ namespace ProyectoNApi.Context
         public DbSet<Patient> Patient { get; set; }
         public DbSet<AnthropometricMeasurement> AnthropometricMeasurement { get; set; }
         public DbSet<Appointment> Appointment { get; set; }
-        public DbSet<PatientTreatment> PatientTreatment { get; set; }
+        public DbSet<Treatment> PatientTreatment { get; set; }
         public DbSet<PatientUser> PatientUser { get; set; }
+        public DbSet<Food> Food { get; set; }
+        public DbSet<Meal> Meal { get; set; }
+        public DbSet<MealFood> MealFood { get; set; }
+        public DbSet<Nutrient> Nutrient { get; set; }
+        public DbSet<NutrientFood> NutrientFood { get; set; }
+        public DbSet<NutritionalPlan> NutritionalPlan { get; set; }
+        public DbSet<NutritionalPlanMeal> NutritionalPlanMeal { get; set; }
+        public DbSet<Pathology> Pathology { get; set; }
+        public DbSet<PatientPathology> PatientPathology { get; set; }
+        public DbSet<Restriction> Restriction { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +38,7 @@ namespace ProyectoNApi.Context
             modelBuilder.Entity<NutrientFood>().HasKey(nf => new { nf.NutrientId, nf.FoodId });
             modelBuilder.Entity<MealFood>().HasKey(mf => new { mf.MealId, mf.FoodId });
             modelBuilder.Entity<Restriction>().HasKey(r => new { r.FoodId, r.PatientId });
+            modelBuilder.Entity<PatientPathology>().HasKey(pp => new { pp.PatientId, pp.PathologyId });
 
             // Configuration of the many to many relationships for the intermediate tables
             // PatientUser
@@ -49,6 +60,10 @@ namespace ProyectoNApi.Context
             //Restrictions (Food + Patient)
             modelBuilder.Entity<Restriction>().HasOne(r => r.Food).WithMany(f => f.Restrictions).HasForeignKey(r => r.FoodId);
             modelBuilder.Entity<Restriction>().HasOne(r => r.Patient).WithMany(p => p.Restrictions).HasForeignKey(r => r.PatientId);
+
+            // PatientPathology
+            modelBuilder.Entity<PatientPathology>().HasOne(pp => pp.Patient).WithMany(p => p.PatientPathology).HasForeignKey(pp => pp.PatientId);
+            modelBuilder.Entity<PatientPathology>().HasOne(pp => pp.Pathology).WithMany(pt => pt.PatientPathology).HasForeignKey(pp => pp.PathologyId);
 
         }
     }

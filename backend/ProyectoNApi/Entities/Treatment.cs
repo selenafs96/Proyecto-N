@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoNApi.Entities
 {
-    public class PatientTreatment
+    public class Treatment
     {
        [Key]
        public required int TreatmentId { get; set; }
