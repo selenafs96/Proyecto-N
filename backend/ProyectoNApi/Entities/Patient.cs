@@ -29,12 +29,13 @@ namespace ProyectoNApi.Entities
         public string? Observations { get; set; }
         public required DateOnly RegisterDate { get; set; }
         public required bool IsActive { get; set; }
-        public ICollection<PatientTreatment>? Treatments { get; set; }
+        public ICollection<Treatment>? Treatments { get; set; }
         public ICollection<AnthropometricMeasurement>? AnthropometricMeasurements { get; set; }
         public ICollection<Appointment>? Appointments { get; set; }
-        //Relationship table between Patient y User
+        //Relationship table between Patient and User
         public ICollection<PatientUser> PatientUsers { get; set; } = new List<PatientUser>();
-        public ICollection<PatientPathology>? PatientPathologies { get; set; }
+        //Relationship table between Patient and Pathology
+        public ICollection<PatientPathology> PatientPathology { get; set; } = new List<PatientPathology>();
         public ICollection<NutritionalPlan>? NutritionalPlans { get; set; }
                 // Relationship table between Food and Patient
         public ICollection<Restriction> Restrictions { get; set; } = new List<Restriction>();
