@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProyectoNApi.Context;
@@ -11,9 +12,11 @@ using ProyectoNApi.Context;
 namespace ProyectoNApi.Migrations
 {
     [DbContext(typeof(ProyectoNContext))]
-    partial class ProyectoNContextModelSnapshot : ModelSnapshot
+    [Migration("20261002121647_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,26 +317,6 @@ namespace ProyectoNApi.Migrations
                     b.ToTable("NutritionalPlanMeal");
                 });
 
-            modelBuilder.Entity("ProyectoNApi.Entities.Pathology", b =>
-                {
-                    b.Property<int>("PathologyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PathologyId"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("PathologyId");
-
-                    b.ToTable("Pathology");
-                });
-
             modelBuilder.Entity("ProyectoNApi.Entities.Patient", b =>
                 {
                     b.Property<int>("PatientId")
@@ -427,23 +410,61 @@ namespace ProyectoNApi.Migrations
 
             modelBuilder.Entity("ProyectoNApi.Entities.PatientPathology", b =>
                 {
+                    b.Property<int>("PathologyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PathologyId"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PathologyId")
-                        .HasColumnType("integer");
+                    b.HasKey("PathologyId");
 
-                    b.Property<DateOnly?>("DiagnosedDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("text");
-
-                    b.HasKey("PatientId", "PathologyId");
-
-                    b.HasIndex("PathologyId");
+                    b.HasIndex("PatientId");
 
                     b.ToTable("PatientPathology");
+                });
+
+            modelBuilder.Entity("ProyectoNApi.Entities.PatientTreatment", b =>
+                {
+                    b.Property<int>("TreatmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TreatmentId"));
+
+                    b.Property<string>("Dose")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Frequency")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("TreatmentId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("PatientTreatment");
                 });
 
             modelBuilder.Entity("ProyectoNApi.Entities.PatientUser", b =>
@@ -484,40 +505,6 @@ namespace ProyectoNApi.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Restriction");
-                });
-
-            modelBuilder.Entity("ProyectoNApi.Entities.Treatment", b =>
-                {
-                    b.Property<int>("TreatmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TreatmentId"));
-
-                    b.Property<string>("Dose")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Frequency")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PatientId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("TreatmentId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("PatientTreatment");
                 });
 
             modelBuilder.Entity("ProyectoNApi.Entities.User", b =>
@@ -664,19 +651,22 @@ namespace ProyectoNApi.Migrations
 
             modelBuilder.Entity("ProyectoNApi.Entities.PatientPathology", b =>
                 {
-                    b.HasOne("ProyectoNApi.Entities.Pathology", "Pathology")
-                        .WithMany("PatientPathology")
-                        .HasForeignKey("PathologyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ProyectoNApi.Entities.Patient", "Patient")
-                        .WithMany("PatientPathology")
+                        .WithMany("PatientPathologies")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pathology");
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("ProyectoNApi.Entities.PatientTreatment", b =>
+                {
+                    b.HasOne("ProyectoNApi.Entities.Patient", "Patient")
+                        .WithMany("Treatments")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Patient");
                 });
@@ -719,17 +709,6 @@ namespace ProyectoNApi.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("ProyectoNApi.Entities.Treatment", b =>
-                {
-                    b.HasOne("ProyectoNApi.Entities.Patient", "Patient")
-                        .WithMany("Treatments")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("ProyectoNApi.Entities.Food", b =>
                 {
                     b.Navigation("MealFood");
@@ -756,11 +735,6 @@ namespace ProyectoNApi.Migrations
                     b.Navigation("NutritionalPlanMeal");
                 });
 
-            modelBuilder.Entity("ProyectoNApi.Entities.Pathology", b =>
-                {
-                    b.Navigation("PatientPathology");
-                });
-
             modelBuilder.Entity("ProyectoNApi.Entities.Patient", b =>
                 {
                     b.Navigation("AnthropometricMeasurements");
@@ -769,7 +743,7 @@ namespace ProyectoNApi.Migrations
 
                     b.Navigation("NutritionalPlans");
 
-                    b.Navigation("PatientPathology");
+                    b.Navigation("PatientPathologies");
 
                     b.Navigation("PatientUsers");
 

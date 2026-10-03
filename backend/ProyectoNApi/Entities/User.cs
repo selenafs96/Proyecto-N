@@ -12,5 +12,10 @@ namespace ProyectoNApi.Entities
         public required string Email { get; set; }
         public required string PhoneNumber { get; set; }
         public string? PhotoUrl { get; set; }
+        public ICollection<Appointment>? Appointments { get; set; }
+        //Relationship table between Patient y User
+        public ICollection<PatientUser> PatientUsers { get; set; } = new List<PatientUser>();
+        public ICollection<NutritionalPlan>? NutritionalPlans { get; set; }
+
     }
 }

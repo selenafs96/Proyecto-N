@@ -29,4 +29,3 @@ El proyecto se encuentra en desarrollo activo.
 <img width="1440" height="1722" alt="Ficha de paciente - HISTORIAL DE CONSULTAS" src="https://github.com/user-attachments/assets/aaeac2a0-0623-40fd-a407-d53f42c0a663" />
 
 <img width="1440" height="2421" alt="Ficha de paciente - PLAN NUTRICIONAL" src="https://github.com/user-attachments/assets/5205d9d7-e780-4e92-b2a4-eb13a3b14821" />
-
