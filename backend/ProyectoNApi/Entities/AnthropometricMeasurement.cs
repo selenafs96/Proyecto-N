@@ -6,7 +6,7 @@ namespace ProyectoNApi.Entities
     {
         [Key]
         public required int MeasurementId { get; set; }
-        public required DateOnly Date { get; set; }
+        public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Today);
         public decimal? Weight { get; set; }
         public decimal? Height { get; set; }
         public decimal? FatPercentage { get; set; }
