@@ -12,9 +12,9 @@ namespace ProyectoNApi.Services
     
     public class UserService : IUserService
     {
-        private readonly ProyectoNContext _context;
+        private readonly ProyectoNDbContext _context;
 
-        public UserService(ProyectoNContext context)
+        public UserService(ProyectoNDbContext context)
         {
             _context = context;
         }

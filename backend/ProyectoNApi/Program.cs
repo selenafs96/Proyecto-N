@@ -8,7 +8,7 @@ using ProyectoNApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddDbContext<ProyectoNContext>(options =>
+builder.Services.AddDbContext<ProyectoNDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserService, UserService>();

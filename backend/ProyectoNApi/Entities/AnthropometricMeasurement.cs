@@ -6,7 +6,7 @@ namespace ProyectoNApi.Entities
     {
         [Key]
         public required int MeasurementId { get; set; }
-        public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+        public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow.ToLocalTime());
         public decimal? Weight { get; set; }
         public decimal? Height { get; set; }
         public decimal? FatPercentage { get; set; }
@@ -26,7 +26,7 @@ namespace ProyectoNApi.Entities
         public decimal? SupraspinalSkinfold { get; set; }
         public decimal? FrontThighSkinfold { get; set; }
         public decimal? MedialCalfSkinfold { get; set; }
-        public decimal? Observations { get; set; }
+        public string? Observations { get; set; }
         public required int PatientId { get; set; }
         public Patient? Patient { get; set; }
     }

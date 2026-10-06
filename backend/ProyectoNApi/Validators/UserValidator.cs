@@ -10,8 +10,8 @@ namespace ProyectoNApi.Validators
     public class UserValidator : AbstractValidator<User>
     {
 
-        private readonly ProyectoNContext _context;
-        public UserValidator(ProyectoNContext context) {
+        private readonly ProyectoNDbContext _context;
+        public UserValidator(ProyectoNDbContext context) {
             _context = context;
 
             RuleFor(u => u.Dni).NotEmpty().WithMessage("El DNI es obligatorio.")
@@ -24,10 +24,14 @@ namespace ProyectoNApi.Validators
                         }).WithMessage("El DNI introducido ya existe.");
 
             RuleFor(u => u.Name).NotEmpty().WithMessage("El nombre no puede estar vacío.")
-            .MaximumLength(50).WithMessage("El nombre no puede contener más de 50 caracteres.");
+            .MaximumLength(50).WithMessage("El nombre no puede contener más de 50 caracteres.")
+            .Matches(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s,\-\(\)]+$").WithMessage("El nombre contiene caracteres no válidos.")
+            .Must(name => !string.IsNullOrWhiteSpace(name)).WithMessage("El nombre no puede estar compuesto solo por espacios.");
 
             RuleFor(u => u.LastName).NotEmpty().WithMessage("El apellido no puede estar vacío.")
-            .MaximumLength(100).WithMessage("El apellido no puede contener más de 100 caracteres.");
+            .MaximumLength(100).WithMessage("El apellido no puede contener más de 100 caracteres.")
+            .Matches(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s,\-\(\)]+$").WithMessage("El apellido contiene caracteres no válidos.")
+            .Must(name => !string.IsNullOrWhiteSpace(name)).WithMessage("El apellido no puede estar compuesto solo por espacios.");
 
             RuleFor(u => u.Email).NotEmpty().WithMessage("El email no puede estar vacío.")
             .MaximumLength(150).WithMessage("El email es demasiado largo.")

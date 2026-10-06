@@ -63,7 +63,7 @@ namespace ProyectoNApi.Entities
         public required Approach Approach { get; set; }
         public SpecialDiet SpecialDiet { get; set; } = SpecialDiet.Normal;
         public string? Observations { get; set; }
-        public DateOnly RegisterDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+        public DateOnly RegisterDate { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow.ToLocalTime());
         public required bool IsActive { get; set; } = true;
         public ICollection<Treatment>? Treatments { get; set; }
         public ICollection<AnthropometricMeasurement>? AnthropometricMeasurements { get; set; }
