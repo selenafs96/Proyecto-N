@@ -17,8 +17,6 @@ namespace ProyectoNApi.Context.Configurations
 
             // Validations
             builder.Property(mf => mf.QuantityInGrams).IsRequired().HasPrecision(10,2);
-            
-           
         }
     }
 }

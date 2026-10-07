@@ -14,7 +14,10 @@ namespace ProyectoNApi.Context.Configurations
 
             // Many to many relationship configuration
             builder.HasOne(pp => pp.Patient).WithMany(p => p.PatientPathology).HasForeignKey(pp => pp.PatientId);
-            builder.HasOne(pp => pp.Pathology).WithMany(pt => pt.PatientPathology).HasForeignKey(pp => pp.PathologyId); 
+            builder.HasOne(pp => pp.Pathology).WithMany(pt => pt.PatientPathology).HasForeignKey(pp => pp.PathologyId);
+
+            // Validations
+            builder.Property(pp => pp.Notes).HasMaxLength(1000);
         }
     }
 }

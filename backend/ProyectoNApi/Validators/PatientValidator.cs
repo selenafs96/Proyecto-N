@@ -71,10 +71,6 @@ namespace ProyectoNApi.Validators
 
             RuleFor(p => p.PhysicalActivity).NotEmpty().WithMessage("El campo de actividad física no puede estar vacío.").IsInEnum().WithMessage("La actividad física solo puede ser: Sedentario, Ligero, Moderado, Intenso o Muy Intenso");
 
-            RuleFor(p => p.AlcoholConsumption).NotNull().WithMessage("Debe indicarse el consumo de alcohol.");
-
-            RuleFor(p => p.TobaccoConsumption).NotNull().WithMessage("Debe indicarse el consumo de tabaco.");
-
             RuleFor(p => p.Approach).NotEmpty().WithMessage("El enfoque no puede estar vacío.").IsInEnum().WithMessage("El enfoque solo puede ser: Pérdida de grasa, Ganancia de músculo, Recomposición, Mantenimiento o Clínico.");
             
             RuleFor(p => p.SpecialDiet).IsInEnum().WithMessage("Opción de dieta específica no válida.");

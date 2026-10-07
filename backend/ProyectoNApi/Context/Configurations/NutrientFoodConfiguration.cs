@@ -16,6 +16,9 @@ namespace ProyectoNApi.Context.Configurations
             builder.HasOne(nf => nf.Nutrient).WithMany(n => n.NutrientFood).HasForeignKey(nf => nf.NutrientId);
             builder.HasOne(nf => nf.Food).WithMany(f => f.NutrientFood).HasForeignKey(nf => nf.FoodId);
 
+            //Validations
+            builder.Property(mf => mf.QuantityPer100g).IsRequired().HasPrecision(10,2);
+
         }
     }
 }

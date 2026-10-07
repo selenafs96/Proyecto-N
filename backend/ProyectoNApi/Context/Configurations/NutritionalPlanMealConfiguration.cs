@@ -16,6 +16,10 @@ namespace ProyectoNApi.Context.Configurations
             builder.HasOne(nm => nm.NutritionalPlan).WithMany(m => m.NutritionalPlanMeal).HasForeignKey(nm => nm.PlanId);
             builder.HasOne(nm => nm.Meal).WithMany(m => m.NutritionalPlanMeal).HasForeignKey(nm => nm.MealId);
 
+            //Validations
+            builder.Property(nm => nm.MealSlot).IsRequired().HasConversion<string>().HasMaxLength(14);
+            builder.Property(nm => nm.DayOfWeek).IsRequired().HasConversion<string>().HasMaxLength(9);
+
             
         }
     }
