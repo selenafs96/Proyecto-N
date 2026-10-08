@@ -20,7 +20,7 @@ namespace ProyectoNApi.Validators
             .Must(BeAValidDni).WithMessage("El DNI introducido no es válido.")
             .MustAsync(async (dni, cancellation) =>
                         {
-                            bool alreadyExists = await _context.User.AnyAsync(u => u.Dni == dni, cancellation);
+                            bool alreadyExists = await _context.Patient.AnyAsync(u => u.Dni == dni, cancellation);
                             return !alreadyExists;
                         }).WithMessage("El DNI introducido ya existe.");
 
