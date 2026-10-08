@@ -15,7 +15,7 @@ namespace ProyectoNApi.Validators
                 .Must(name => !string.IsNullOrWhiteSpace(name)).WithMessage("El nombre no puede estar compuesto solo por espacios.");
             RuleFor(m => m.Recipe).MaximumLength(10000).WithMessage("La receta es demasiado larga.");
             RuleFor(m => m.TimeInMinutes).NotEmpty().WithMessage("La duración es obligatoria.").InclusiveBetween(0, 1440).WithMessage("El tiempo de preparación debe estar entre 0 y 1440 minutos.");
-            RuleFor(m => m.Difficulty).NotEmpty().WithMessage("Es obligatorio indicar la dificultad.").IsInEnum().WithMessage("La dificultad solo puede ser Fácil, Media, Difícil o Experto.");
+            RuleFor(m => m.Difficulty).IsInEnum().WithMessage("La dificultad solo puede ser Fácil, Media, Difícil o Experto.");
         }
     }
 }

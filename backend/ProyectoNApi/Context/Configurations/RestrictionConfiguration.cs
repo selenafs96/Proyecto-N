@@ -17,6 +17,10 @@ namespace ProyectoNApi.Context.Configurations
             // Many to many relationship configuration
             builder.HasOne(r => r.Food).WithMany(f => f.Restrictions).HasForeignKey(r => r.FoodId);
             builder.HasOne(r => r.Patient).WithMany(p => p.Restrictions).HasForeignKey(r => r.PatientId);
+
+            // Validations
+            builder.Property(r => r.Type).IsRequired().HasConversion<string>().HasMaxLength(20);
+            builder.Property(p => p.Observations).HasMaxLength(5000);
         }
     }
 }

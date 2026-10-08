@@ -19,7 +19,7 @@ namespace ProyectoNApi.Context.Configurations
 
             builder.Property(p => p.Birthdate).IsRequired().HasColumnType("date");
 
-            builder.Property(p => p.Gender).IsRequired().HasConversion<string>().HasMaxLength(10);
+            builder.Property(p => p.Gender).IsRequired().HasConversion<string>().HasMaxLength(20);
 
             builder.Property(p => p.Occupation).IsRequired().HasMaxLength(100);
 
@@ -42,15 +42,15 @@ namespace ProyectoNApi.Context.Configurations
 
             builder.Property(p => p.Country).HasMaxLength(100);
 
-            builder.Property(p => p.PhysicalActivity).IsRequired().HasConversion<string>().HasMaxLength(10);
+            builder.Property(p => p.PhysicalActivity).IsRequired().HasConversion<string>().HasMaxLength(20);
 
             builder.Property(p => p.AlcoholConsumption).IsRequired();
 
             builder.Property(p => p.TobaccoConsumption).IsRequired();
 
-            builder.Property(p => p.Approach).IsRequired().HasConversion<string>().HasMaxLength(15);
+            builder.Property(p => p.Approach).IsRequired().HasConversion<string>().HasMaxLength(20);
 
-            builder.Property(p => p.SpecialDiet).IsRequired().HasConversion<string>().HasMaxLength(15);
+            builder.Property(p => p.SpecialDiet).IsRequired().HasConversion<string>().HasMaxLength(20);
 
             builder.Property(p => p.Observations).HasMaxLength(5000);
 

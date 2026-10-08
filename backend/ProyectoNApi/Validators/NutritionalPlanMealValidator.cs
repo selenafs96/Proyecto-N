@@ -14,9 +14,9 @@ namespace ProyectoNApi.Validators
             RuleFor(n => n.PlanId)
                 .GreaterThan(0).WithMessage("El identificador del plan nutricional no es válido.");
 
-           RuleFor(n => n.MealSlot).NotEmpty().WithMessage("El campo de horario de comida no puede estar vacío").IsInEnum().WithMessage("El horario de comida solo puede ser Desayuno, MediaMañana, Comida, Merienda, Cena, Pre-entreno o Post-entreno.");
+           RuleFor(n => n.MealSlot).IsInEnum().WithMessage("El horario de comida solo puede ser Desayuno, MediaMañana, Comida, Merienda, Cena, Pre-entreno o Post-entreno.");
            
-           RuleFor(n => n.DayOfWeek).NotEmpty().WithMessage("El campo día de la semana no puede estar vacío.").IsInEnum().WithMessage("Día de la semana no válido.");
+           RuleFor(n => n.DayOfWeek).IsInEnum().WithMessage("Día de la semana no válido.");
         }
     }
 }

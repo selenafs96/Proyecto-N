@@ -14,11 +14,11 @@ namespace ProyectoNApi.Context.Configurations
 
             builder.Property(a => a.Duration).IsRequired();
 
-            builder.Property(a => a.State).IsRequired().HasConversion<string>().HasMaxLength(9);
+            builder.Property(a => a.State).IsRequired().HasConversion<string>().HasMaxLength(20);
 
-            builder.Property(a => a.Format).IsRequired().HasConversion<string>().HasMaxLength(8);
+            builder.Property(a => a.Format).IsRequired().HasConversion<string>().HasMaxLength(20);
 
-            builder.Property(a => a.Type).IsRequired().HasConversion<string>().HasMaxLength(8);
+            builder.Property(a => a.Type).IsRequired().HasConversion<string>().HasMaxLength(20);
 
             builder.Property(a => a.Notes).HasMaxLength(5000);
 

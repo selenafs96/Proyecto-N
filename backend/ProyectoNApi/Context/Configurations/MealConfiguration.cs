@@ -13,7 +13,7 @@ namespace ProyectoNApi.Context.Configurations
             builder.Property(m => m.Name).IsRequired().HasMaxLength(200);
             builder.Property(m => m.Recipe).HasMaxLength(10000);
             builder.Property(m => m.TimeInMinutes).IsRequired();
-            builder.Property(m => m.Difficulty).IsRequired().HasMaxLength(6).HasConversion<string>();
+            builder.Property(m => m.Difficulty).IsRequired().HasMaxLength(10).HasConversion<string>();
 
            
         }

@@ -38,7 +38,7 @@ namespace ProyectoNApi.Validators
                 .LessThan(DateOnly.FromDateTime(DateTime.UtcNow.ToLocalTime())).WithMessage("La fecha de nacimiento no puede ser futura.")
                 .GreaterThan(DateOnly.FromDateTime(DateTime.UtcNow.ToLocalTime().AddYears(-120))).WithMessage("La fecha de nacimiento  introducida no es válida.");
 
-            RuleFor(p => p.Gender).NotEmpty().WithMessage("El género no puede estar vacío.").IsInEnum().WithMessage("El género debe ser Masculino o Femenino.");
+            RuleFor(p => p.Gender).IsInEnum().WithMessage("El género debe ser Masculino o Femenino.");
 
             RuleFor(p => p.Occupation).NotEmpty().WithMessage("La ocupación no puede estar vacía.").MaximumLength(100).WithMessage("La ocupación es demasiado larga.");
 
@@ -69,9 +69,9 @@ namespace ProyectoNApi.Validators
 
             RuleFor(p => p.Country).MaximumLength(100).WithMessage("El campo País es demasiado largo.");
 
-            RuleFor(p => p.PhysicalActivity).NotEmpty().WithMessage("El campo de actividad física no puede estar vacío.").IsInEnum().WithMessage("La actividad física solo puede ser: Sedentario, Ligero, Moderado, Intenso o Muy Intenso");
+            RuleFor(p => p.PhysicalActivity).IsInEnum().WithMessage("La actividad física solo puede ser: Sedentario, Ligero, Moderado, Intenso o Muy Intenso");
 
-            RuleFor(p => p.Approach).NotEmpty().WithMessage("El enfoque no puede estar vacío.").IsInEnum().WithMessage("El enfoque solo puede ser: Pérdida de grasa, Ganancia de músculo, Recomposición, Mantenimiento o Clínico.");
+            RuleFor(p => p.Approach).IsInEnum().WithMessage("El enfoque solo puede ser: Pérdida de grasa, Ganancia de músculo, Recomposición, Mantenimiento o Clínico.");
             
             RuleFor(p => p.SpecialDiet).IsInEnum().WithMessage("Opción de dieta específica no válida.");
 
