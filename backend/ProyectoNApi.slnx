@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ProyectoNApi.Tests/ProyectoNApi.Tests.csproj" />
+  <Project Path="ProyectoNApi/ProyectoNApi.csproj" />
+</Solution>
