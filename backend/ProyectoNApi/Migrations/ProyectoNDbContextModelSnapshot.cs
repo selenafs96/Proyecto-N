@@ -10,8 +10,8 @@ using ProyectoNApi.Context;
 
 namespace ProyectoNApi.Migrations
 {
-    [DbContext(typeof(ProyectoNContext))]
-    partial class ProyectoNContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ProyectoNDbContext))]
+    partial class ProyectoNDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -31,70 +31,90 @@ namespace ProyectoNApi.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MeasurementId"));
 
                     b.Property<decimal?>("AbdominalSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("BicipitalSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Calf")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("ContractedArm")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
 
                     b.Property<decimal?>("FatPercentage")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("FrontThighSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Height")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Hip")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("MedialCalfSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("MusclePercentage")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<decimal?>("Observations")
-                        .HasColumnType("numeric");
+                    b.Property<string>("Observations")
+                        .HasMaxLength(5000)
+                        .HasColumnType("text");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("RelaxedArm")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("SubscapularSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("SuprailiacSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("SupraspinalSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Thigh")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("TricipitalSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Waist")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Weight")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Wrist")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.HasKey("MeasurementId");
 
@@ -111,30 +131,36 @@ namespace ProyectoNApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AppointmentId"));
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTimeOffset>("AppointmentDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Duration")
                         .HasColumnType("integer");
 
                     b.Property<string>("Format")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("text");
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("Reminder")
+                    b.Property<DateTimeOffset?>("Reminder")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)");
 
                     b.Property<string>("Type")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -158,11 +184,13 @@ namespace ProyectoNApi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Source")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("FoodId");
 
@@ -178,17 +206,21 @@ namespace ProyectoNApi.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MealId"));
 
                     b.Property<string>("Difficulty")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("character varying(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Recipe")
-                        .HasColumnType("text");
+                        .HasMaxLength(10000)
+                        .HasColumnType("character varying(10000)");
 
-                    b.Property<TimeOnly?>("TimeInMinutes")
-                        .HasColumnType("time without time zone");
+                    b.Property<int>("TimeInMinutes")
+                        .HasColumnType("integer");
 
                     b.HasKey("MealId");
 
@@ -204,7 +236,8 @@ namespace ProyectoNApi.Migrations
                         .HasColumnType("integer");
 
                     b.Property<decimal>("QuantityInGrams")
-                        .HasColumnType("numeric");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)");
 
                     b.HasKey("MealId", "FoodId");
 
@@ -347,80 +380,104 @@ namespace ProyectoNApi.Migrations
 
                     b.Property<string>("Approach")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
 
                     b.Property<DateOnly>("Birthdate")
                         .HasColumnType("date");
 
                     b.Property<string>("City")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Country")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Dni")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("CHAR(9)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<string>("FloorOrDoor")
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
-                    b.Property<string>("Genre")
+                    b.Property<string>("Gender")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Observations")
-                        .HasColumnType("text");
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)");
 
                     b.Property<string>("Occupation")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
 
                     b.Property<string>("PhysicalActivity")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
                     b.Property<string>("PostalCode")
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("Province")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateOnly>("RegisterDate")
                         .HasColumnType("date");
 
                     b.Property<string>("SpecialDiet")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
 
                     b.Property<string>("Street")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("StreetNumber")
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<bool>("TobaccoConsumption")
                         .HasColumnType("boolean");
 
                     b.HasKey("PatientId");
+
+                    b.HasIndex("Dni")
+                        .IsUnique();
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Patient");
                 });
@@ -530,28 +587,39 @@ namespace ProyectoNApi.Migrations
 
                     b.Property<string>("Dni")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("CHAR(9)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
 
                     b.Property<string>("PhotoUrl")
-                        .HasColumnType("text");
+                        .HasMaxLength(2048)
+                        .HasColumnType("character varying(2048)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("Dni")
+                        .IsUnique();
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("User");
                 });

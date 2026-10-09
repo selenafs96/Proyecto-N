@@ -8,7 +8,7 @@ namespace ProyectoNApi.Entities
         public required int PlanId { get; set; }
         public required string Name { get; set; }
         public required DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
+        public DateOnly? EndDate { get; set; }
         public string? Observations { get; set; }
         public required int PatientId { get; set; }
         public Patient? Patient { get; set; }

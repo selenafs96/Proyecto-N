@@ -2,6 +2,42 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoNApi.Entities
 {
+
+    public enum Gender
+    {
+        Male,
+        Female
+    }
+
+    public enum PhysicalActivity
+    {
+        Sedentary,
+        LightlyActive,
+        ModeratelyActive,
+        VeryActive,
+        ExtremelyActive
+    }
+
+    public enum Approach
+    {
+        FatLoss,
+        MuscleGain,
+        Recomposition,
+        Maintenance,
+        Clinical
+    }
+
+    public enum SpecialDiet
+    {
+        Normal,
+        Vegan,
+        Vegetarian,
+        Paleo,
+        Fodmap,
+        RealFood,
+        Keto
+    }
+
     public class Patient
     {
         [Key]
@@ -10,7 +46,7 @@ namespace ProyectoNApi.Entities
         public required string Name { get; set; }
         public required string LastName { get; set; }
         public required DateOnly Birthdate { get; set; }
-        public required string Genre { get; set; }
+        public required Gender Gender { get; set; }
         public required string Occupation { get; set; }
         public required string Email { get; set; }
         public required string PhoneNumber { get; set; }
@@ -21,14 +57,14 @@ namespace ProyectoNApi.Entities
         public string? PostalCode { get; set; }
         public string? Province { get; set; }
         public string? Country { get; set; }
-        public required string PhysicalActivity { get; set; }
+        public required PhysicalActivity PhysicalActivity { get; set; }
         public required bool AlcoholConsumption { get; set; }
         public required bool TobaccoConsumption { get; set; }
-        public required string Approach { get; set; }
-        public string? SpecialDiet { get; set; }
+        public required Approach Approach { get; set; }
+        public SpecialDiet SpecialDiet { get; set; } = SpecialDiet.Normal;
         public string? Observations { get; set; }
-        public required DateOnly RegisterDate { get; set; }
-        public required bool IsActive { get; set; }
+        public DateOnly RegisterDate { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow.ToLocalTime());
+        public required bool IsActive { get; set; } = true;
         public ICollection<Treatment>? Treatments { get; set; }
         public ICollection<AnthropometricMeasurement>? AnthropometricMeasurements { get; set; }
         public ICollection<Appointment>? Appointments { get; set; }
@@ -39,8 +75,5 @@ namespace ProyectoNApi.Entities
         public ICollection<NutritionalPlan>? NutritionalPlans { get; set; }
                 // Relationship table between Food and Patient
         public ICollection<Restriction> Restrictions { get; set; } = new List<Restriction>();
-
-        //TODO en el validador de Patient, hacer que la lista PatientUsers no pueda estar vacía (siempre tiene que tener un nutricionista asociado)
-
     }
 }

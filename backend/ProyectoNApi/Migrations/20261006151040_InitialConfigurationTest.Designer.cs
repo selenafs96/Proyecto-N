@@ -11,9 +11,9 @@ using ProyectoNApi.Context;
 
 namespace ProyectoNApi.Migrations
 {
-    [DbContext(typeof(ProyectoNContext))]
-    [Migration("20261002121647_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(ProyectoNDbContext))]
+    [Migration("20261006151040_InitialConfigurationTest")]
+    partial class InitialConfigurationTest
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,70 +34,90 @@ namespace ProyectoNApi.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MeasurementId"));
 
                     b.Property<decimal?>("AbdominalSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("BicipitalSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Calf")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("ContractedArm")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
 
                     b.Property<decimal?>("FatPercentage")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("FrontThighSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Height")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Hip")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("MedialCalfSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("MusclePercentage")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<decimal?>("Observations")
-                        .HasColumnType("numeric");
+                    b.Property<string>("Observations")
+                        .HasMaxLength(5000)
+                        .HasColumnType("text");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("RelaxedArm")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("SubscapularSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("SuprailiacSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("SupraspinalSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Thigh")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("TricipitalSkinfold")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Waist")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Weight")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<decimal?>("Wrist")
-                        .HasColumnType("numeric");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
 
                     b.HasKey("MeasurementId");
 
@@ -114,30 +134,36 @@ namespace ProyectoNApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AppointmentId"));
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTimeOffset>("AppointmentDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Duration")
                         .HasColumnType("integer");
 
                     b.Property<string>("Format")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("text");
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("Reminder")
+                    b.Property<DateTimeOffset?>("Reminder")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)");
 
                     b.Property<string>("Type")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -161,11 +187,13 @@ namespace ProyectoNApi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Source")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("FoodId");
 
@@ -181,17 +209,21 @@ namespace ProyectoNApi.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MealId"));
 
                     b.Property<string>("Difficulty")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("character varying(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Recipe")
-                        .HasColumnType("text");
+                        .HasMaxLength(10000)
+                        .HasColumnType("character varying(10000)");
 
-                    b.Property<TimeOnly?>("TimeInMinutes")
-                        .HasColumnType("time without time zone");
+                    b.Property<int>("TimeInMinutes")
+                        .HasColumnType("integer");
 
                     b.HasKey("MealId");
 
@@ -207,7 +239,8 @@ namespace ProyectoNApi.Migrations
                         .HasColumnType("integer");
 
                     b.Property<decimal>("QuantityInGrams")
-                        .HasColumnType("numeric");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)");
 
                     b.HasKey("MealId", "FoodId");
 
@@ -317,98 +350,7 @@ namespace ProyectoNApi.Migrations
                     b.ToTable("NutritionalPlanMeal");
                 });
 
-            modelBuilder.Entity("ProyectoNApi.Entities.Patient", b =>
-                {
-                    b.Property<int>("PatientId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PatientId"));
-
-                    b.Property<bool>("AlcoholConsumption")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Approach")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("Birthdate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("City")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Dni")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FloorOrDoor")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Genre")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Observations")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Occupation")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhysicalActivity")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Province")
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("RegisterDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("SpecialDiet")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("text");
-
-                    b.Property<string>("StreetNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TobaccoConsumption")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("PatientId");
-
-                    b.ToTable("Patient");
-                });
-
-            modelBuilder.Entity("ProyectoNApi.Entities.PatientPathology", b =>
+            modelBuilder.Entity("ProyectoNApi.Entities.Pathology", b =>
                 {
                     b.Property<int>("PathologyId")
                         .ValueGeneratedOnAdd()
@@ -423,48 +365,145 @@ namespace ProyectoNApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("integer");
-
                     b.HasKey("PathologyId");
 
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("PatientPathology");
+                    b.ToTable("Pathology");
                 });
 
-            modelBuilder.Entity("ProyectoNApi.Entities.PatientTreatment", b =>
+            modelBuilder.Entity("ProyectoNApi.Entities.Patient", b =>
                 {
-                    b.Property<int>("TreatmentId")
+                    b.Property<int>("PatientId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TreatmentId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PatientId"));
 
-                    b.Property<string>("Dose")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<bool>("AlcoholConsumption")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Frequency")
+                    b.Property<string>("Approach")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
+
+                    b.Property<DateOnly>("Birthdate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Dni")
+                        .IsRequired()
+                        .HasColumnType("CHAR(9)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("FloorOrDoor")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
+                    b.Property<string>("Observations")
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)");
+
+                    b.Property<string>("Occupation")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
+
+                    b.Property<string>("PhysicalActivity")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Province")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateOnly>("RegisterDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("SpecialDiet")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
+
+                    b.Property<string>("Street")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("StreetNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<bool>("TobaccoConsumption")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("PatientId");
+
+                    b.HasIndex("Dni")
+                        .IsUnique();
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Patient");
+                });
+
+            modelBuilder.Entity("ProyectoNApi.Entities.PatientPathology", b =>
+                {
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
+                    b.Property<int>("PathologyId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateOnly?>("DiagnosedDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("text");
 
-                    b.HasKey("TreatmentId");
+                    b.HasKey("PatientId", "PathologyId");
 
-                    b.HasIndex("PatientId");
+                    b.HasIndex("PathologyId");
 
-                    b.ToTable("PatientTreatment");
+                    b.ToTable("PatientPathology");
                 });
 
             modelBuilder.Entity("ProyectoNApi.Entities.PatientUser", b =>
@@ -507,6 +546,40 @@ namespace ProyectoNApi.Migrations
                     b.ToTable("Restriction");
                 });
 
+            modelBuilder.Entity("ProyectoNApi.Entities.Treatment", b =>
+                {
+                    b.Property<int>("TreatmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TreatmentId"));
+
+                    b.Property<string>("Dose")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Frequency")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("TreatmentId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("PatientTreatment");
+                });
+
             modelBuilder.Entity("ProyectoNApi.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -517,28 +590,39 @@ namespace ProyectoNApi.Migrations
 
                     b.Property<string>("Dni")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("CHAR(9)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
 
                     b.Property<string>("PhotoUrl")
-                        .HasColumnType("text");
+                        .HasMaxLength(2048)
+                        .HasColumnType("character varying(2048)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("Dni")
+                        .IsUnique();
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("User");
                 });
@@ -651,22 +735,19 @@ namespace ProyectoNApi.Migrations
 
             modelBuilder.Entity("ProyectoNApi.Entities.PatientPathology", b =>
                 {
+                    b.HasOne("ProyectoNApi.Entities.Pathology", "Pathology")
+                        .WithMany("PatientPathology")
+                        .HasForeignKey("PathologyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ProyectoNApi.Entities.Patient", "Patient")
-                        .WithMany("PatientPathologies")
+                        .WithMany("PatientPathology")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("ProyectoNApi.Entities.PatientTreatment", b =>
-                {
-                    b.HasOne("ProyectoNApi.Entities.Patient", "Patient")
-                        .WithMany("Treatments")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Pathology");
 
                     b.Navigation("Patient");
                 });
@@ -709,6 +790,17 @@ namespace ProyectoNApi.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("ProyectoNApi.Entities.Treatment", b =>
+                {
+                    b.HasOne("ProyectoNApi.Entities.Patient", "Patient")
+                        .WithMany("Treatments")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("ProyectoNApi.Entities.Food", b =>
                 {
                     b.Navigation("MealFood");
@@ -735,6 +827,11 @@ namespace ProyectoNApi.Migrations
                     b.Navigation("NutritionalPlanMeal");
                 });
 
+            modelBuilder.Entity("ProyectoNApi.Entities.Pathology", b =>
+                {
+                    b.Navigation("PatientPathology");
+                });
+
             modelBuilder.Entity("ProyectoNApi.Entities.Patient", b =>
                 {
                     b.Navigation("AnthropometricMeasurements");
@@ -743,7 +840,7 @@ namespace ProyectoNApi.Migrations
 
                     b.Navigation("NutritionalPlans");
 
-                    b.Navigation("PatientPathologies");
+                    b.Navigation("PatientPathology");
 
                     b.Navigation("PatientUsers");
 
