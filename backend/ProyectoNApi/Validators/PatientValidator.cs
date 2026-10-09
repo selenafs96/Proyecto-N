@@ -20,7 +20,7 @@ namespace ProyectoNApi.Validators
             .Must(BeAValidDni).WithMessage("El DNI introducido no es válido.")
             .MustAsync(async (dni, cancellation) =>
                         {
-                            bool alreadyExists = await _context.User.AnyAsync(u => u.Dni == dni, cancellation);
+                            bool alreadyExists = await _context.Patient.AnyAsync(u => u.Dni == dni, cancellation);
                             return !alreadyExists;
                         }).WithMessage("El DNI introducido ya existe.");
 
@@ -32,7 +32,7 @@ namespace ProyectoNApi.Validators
             RuleFor(p => p.LastName).NotEmpty().WithMessage("El apellido no puede estar vacío.")
                 .MaximumLength(100).WithMessage("El apellido no puede contener más de 100 caracteres.")
                 .Matches(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s,\-\(\)]+$").WithMessage("El apellido contiene caracteres no válidos.")
-                .Must(name => !string.IsNullOrWhiteSpace(name)).WithMessage("El apellido no puede estar compuesto solo por espacios.");
+                .Must(lastName => !string.IsNullOrWhiteSpace(lastName)).WithMessage("El apellido no puede estar compuesto solo por espacios.");
 
             RuleFor(p => p.Birthdate).NotEmpty().WithMessage("La fecha de nacimiento no puede estar vacía.")
                 .LessThan(DateOnly.FromDateTime(DateTime.UtcNow.ToLocalTime())).WithMessage("La fecha de nacimiento no puede ser futura.")
@@ -40,14 +40,15 @@ namespace ProyectoNApi.Validators
 
             RuleFor(p => p.Gender).IsInEnum().WithMessage("El género debe ser Masculino o Femenino.");
 
-            RuleFor(p => p.Occupation).NotEmpty().WithMessage("La ocupación no puede estar vacía.").MaximumLength(100).WithMessage("La ocupación es demasiado larga.");
+            RuleFor(p => p.Occupation).NotEmpty().WithMessage("La ocupación no puede estar vacía.").MaximumLength(100).WithMessage("La ocupación es demasiado larga.")
+            .Must(occupation => !string.IsNullOrWhiteSpace(occupation)).WithMessage("La ocupación no puede estar compuesta solo por espacios.");
 
             RuleFor(p => p.Email).NotEmpty().WithMessage("El email no puede estar vacío.")
                 .MaximumLength(150).WithMessage("El email es demasiado largo.")
                 .EmailAddress().WithMessage("El formato del correo electrónico no es válido")
                 .MustAsync(async (email, cancellation) =>
                         {
-                            bool alreadyExists = await _context.User.AnyAsync(u => u.Email == email, cancellation);
+                            bool alreadyExists = await _context.Patient.AnyAsync(p => p.Email == email, cancellation);
                             return !alreadyExists;
                         }).WithMessage("El email introducido ya existe.");
             
@@ -79,8 +80,6 @@ namespace ProyectoNApi.Validators
 
             RuleFor(p => p.RegisterDate)
                 .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.UtcNow.ToLocalTime())).WithMessage("La fecha de registro no puede ser futura.");
-
-            RuleFor(p => p.IsActive).NotNull().WithMessage("Debe indicarse el estado activo o no activo del paciente.");
         }
     }
 }

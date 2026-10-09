@@ -75,8 +75,5 @@ namespace ProyectoNApi.Entities
         public ICollection<NutritionalPlan>? NutritionalPlans { get; set; }
                 // Relationship table between Food and Patient
         public ICollection<Restriction> Restrictions { get; set; } = new List<Restriction>();
-
-        //TODO en el validador de Patient, hacer que la lista PatientUsers no pueda estar vacía (siempre tiene que tener un nutricionista asociado)
-
     }
 }
