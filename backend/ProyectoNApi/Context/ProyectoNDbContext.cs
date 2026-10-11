@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 using ProyectoNApi.Entities;
 
 namespace ProyectoNApi.Context
 {
-    public class ProyectoNDbContext : DbContext
+    public class ProyectoNDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public ProyectoNDbContext(DbContextOptions<ProyectoNDbContext> options) : base(options)
         {
