@@ -12,6 +12,7 @@ export default async function Home() {
         {userData &&
           <h1>{userData.email}</h1>
         }
+        <h1>Po hola</h1>
       </main>
     </div>
   );
