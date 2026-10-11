@@ -9,7 +9,7 @@ namespace ProyectoNApi.Services
     {
         Task<UserDto?> GetUserById(int id);
     }
-    
+
     public class UserService : IUserService
     {
         private readonly ProyectoNDbContext _context;
@@ -22,7 +22,7 @@ namespace ProyectoNApi.Services
 
         public async Task<UserDto?> GetUserById(int id)
         {
-            var user = await _context.User.FirstOrDefaultAsync(u => u.UserId == id);
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null)
             {
@@ -34,8 +34,8 @@ namespace ProyectoNApi.Services
                 Dni = user.Dni,
                 Name = user.Name,
                 LastName = user.LastName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
+                Email = user.Email!,
+                PhoneNumber = user.PhoneNumber!,
                 PhotoUrl = user.PhotoUrl
             };
             return userDto;

@@ -35,12 +35,7 @@ namespace ProyectoNApi.Validators
 
             RuleFor(u => u.Email).NotEmpty().WithMessage("El email no puede estar vacío.")
             .MaximumLength(150).WithMessage("El email es demasiado largo.")
-            .EmailAddress().WithMessage("El formato del correo electrónico no es válido")
-            .MustAsync(async (email, cancellation) =>
-                        {
-                            bool alreadyExists = await _context.User.AnyAsync(u => u.Email == email, cancellation);
-                            return !alreadyExists;
-                        }).WithMessage("El DNI introducido ya existe.");
+            .EmailAddress().WithMessage("El formato del correo electrónico no es válido");
 
             RuleFor(u => u.PhoneNumber).NotEmpty().WithMessage("El teléfono no puede estar vacío.")
             // Validates international phone numbers (E.164 standard: 2-15 digits, optional '+' prefix, no spaces/hyphens)
