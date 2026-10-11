@@ -5,7 +5,7 @@ using ProyectoNApi.Models.Dtos;
 
 namespace ProyectoNApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/user")]
 [ApiController]
 public class UserController : ControllerBase
 {
