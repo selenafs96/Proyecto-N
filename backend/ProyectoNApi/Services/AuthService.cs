@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using ProyectoNApi.Entities;
 using ProyectoNApi.Models.Dtos;
 
@@ -13,6 +13,8 @@ namespace ProyectoNApi.Services
         Task<AuthResult> LoginAsync(LoginDto loginDto);
         Task LogoutAsync();
         Task<UserDto?> GetCurrentUserAsync(ClaimsPrincipal identity);
+        AuthenticationProperties ConfigureGoogleProperties (string redirectUrl);
+        Task<(bool Succeeded, string RedirectUrl, string ErrorMessage)> GoogleResponse();
 
     }
 
@@ -117,7 +119,7 @@ namespace ProyectoNApi.Services
         }
 
         /// <summary>
-        /// 
+        /// Returns the current user information
         /// </summary>
         /// <param name="identity">ClaimsPrincipal is the result of unpackaging an httpOnly cookie</param>
         /// <returns></returns>
@@ -139,6 +141,57 @@ namespace ProyectoNApi.Services
                 PhoneNumber = user.PhoneNumber!,
                 PhotoUrl = (!string.IsNullOrEmpty(user.PhotoUrl)) ? user.PhotoUrl : null 
             };
+        }
+
+         /// <summary>
+        /// Configures the request for Google and redirects to accounts.google.com
+        /// </summary>
+        /// <returns>AuthenticacionProperties</returns>
+        public AuthenticationProperties ConfigureGoogleProperties(string redirectUrl)
+        {
+            return _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
+        }
+
+        /// <summary>
+        /// Processes the Google sign-in response, creates an account if needed, and signs in the user.
+        /// Users without a DNI are redirected to complete their profile; other users are sent to the dashboard.
+        /// </summary>
+        /// <returns>
+        /// A tuple indicating whether the operation succeeded, the URL to redirect to, and any error message.
+        /// </returns>
+        public async Task<(bool Succeeded, string RedirectUrl, string ErrorMessage)> GoogleResponse()
+        {
+            // Checks the Google Temp data from the HTTP request
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null) return (false, string.Empty, "Error con Google.");
+
+            // Checks if the user already exists
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email)!;
+            var user = await _userManager.FindByEmailAsync(email);
+
+            bool isNewUser = false;
+
+            if (user == null)
+            {
+                // Creates the basic user using google information
+                user = new User { UserName = email, Email = email, EmailConfirmed = true };
+                await _userManager.CreateAsync(user);
+                await _userManager.AddLoginAsync(user, info);
+                isNewUser = true;
+            }
+
+            // Sign In (creating HttpOnly cookie)
+            await _signInManager.SignInAsync(user, isPersistent: false);
+
+            // Checks if the user has DNI or it's a new user
+            if (isNewUser || string.IsNullOrEmpty(user.Dni))
+            {
+                // Redirect to the complete-profile Next.js page to complete his data
+                return (true, "http://localhost:3000/complete-profile", string.Empty);
+            }
+
+            // Redirects to dashboard
+            return (true, "http://localhost:3000/dashboard", string.Empty);
         }
     }
 }

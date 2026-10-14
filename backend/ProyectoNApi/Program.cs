@@ -51,12 +51,13 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = IdentityConstants.ApplicationScheme; //HttpOnly Cookies to keep the session active 
     options.DefaultSignInScheme = IdentityConstants.ExternalScheme; // Temporary while the user is in the process of authenticating with an external server 
+})
+.AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+    googleOptions.CallbackPath = "/signin-google";
 });
-// .AddGoogle(googleOptions =>
-// {
-//     googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
-//     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
-// });
 
 var app = builder.Build();
 

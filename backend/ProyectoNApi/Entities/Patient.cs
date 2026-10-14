@@ -73,7 +73,7 @@ namespace ProyectoNApi.Entities
         //Relationship table between Patient and Pathology
         public ICollection<PatientPathology> PatientPathology { get; set; } = new List<PatientPathology>();
         public ICollection<NutritionalPlan>? NutritionalPlans { get; set; }
-                // Relationship table between Food and Patient
+        // Relationship table between Food and Patient
         public ICollection<Restriction> Restrictions { get; set; } = new List<Restriction>();
     }
 }

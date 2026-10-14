@@ -745,7 +745,6 @@ namespace ProyectoNApi.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Dni")
-                        .IsRequired()
                         .HasColumnType("CHAR(9)");
 
                     b.Property<string>("Email")
@@ -757,7 +756,6 @@ namespace ProyectoNApi.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
@@ -768,7 +766,6 @@ namespace ProyectoNApi.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
@@ -784,7 +781,6 @@ namespace ProyectoNApi.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(16)
                         .HasColumnType("character varying(16)");
 
