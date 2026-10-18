@@ -13,8 +13,8 @@ interface Slide {
     swapOrder: boolean;
     metricIcon?: React.ReactNode;
   }[];
-  footerLabel: string;
-  footerValue: string;
+  footerLabel?: string;
+  footerValue?: string;
   title: string;
   description: string;
   icon: React.ReactNode;
@@ -23,7 +23,7 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    icon: <Activity className="w-4 h-4 text-[#346e57]" />,
+    icon: <Activity className="w-4 h-4 text-primary-dark" />,
     badge: "Balance energético y macros",
     badgeStatus: "Tiempo real",
     metrics: [
@@ -38,30 +38,27 @@ const slides: Slide[] = [
   },
   {
     id: 2,
-    icon: <ShieldCheck className="w-4 h-4 text-[#346e57]" />,
+    icon: <ShieldCheck className="w-4 h-4 text-primary-dark" />,
     badge: "Fuentes de datos homologadas",
     metrics: [
-      { label: "Composición de alimentos básicos", value: "BEDCA Española", swapOrder: true, metricIcon: <Database /> },
+      { label: "Composición de alimentos básicos", value: "BEDCA España", swapOrder: true, metricIcon: <Database className="text-primary-dark"/> },
       { label: "Composición de alimentos envasados", value: "Open Food Facts", swapOrder: true },
     ],
-    footerLabel: "Protocolo de Exclusión Estricta",
-    footerValue: "Certificación Médica Activa",
     title: "Seguridad y datos homologados",
-    description: "Conexión cifrada de grado clínico con datos de composición de alimentos provenientes de bases de datos oficiales BEDCA y Open Food Facts."
+    description: "Datos de composición de alimentos provenientes de bases de datos oficiales BEDCA y Open Food Facts."
   },
   {
     id: 3,
-    icon: <CalendarClock className="w-4 h-4 text-[#346e57]" />,
-    badge: "Seguimiento Clínico y Consultas",
-    badgeStatus: "Sincronizado",
+    icon: <CalendarClock className="w-4 h-4 text-primary-dark" />,
+    badge: "Seguimiento clínico y consultas",
     metrics: [
-      { label: "Adherencia Pauta", value: "94%", sub: "Excelente", swapOrder: false },
-      { label: "Próxima Revisión", value: "7 Nov", sub: "10:30h", swapOrder: false },
-      { label: "Evolución Peso", value: "-2.4 kg", sub: "Objetivo", swapOrder: false },
+      { label: "Adherencia", value: "94%", sub: "Excelente", swapOrder: false },
+      { label: "Próxima revisión", value: "7 Nov", sub: "10:30h", swapOrder: false },
+      { label: "Evolución peso", value: "-2.4 kg", swapOrder: false },
     ],
-    footerLabel: "Historial de Consultas & Bioimpedancia",
-    footerValue: "Expediente #MED-84920",
-    title: "Gestión Integral del Paciente",
+    footerLabel: "Historial de consultas y bioimpedancia",
+    footerValue: "Expediente #84920",
+    title: "Gestión integral del paciente",
     description: "Centraliza historia clínica, evolución antropométrica e historial de citas en un entorno clínico despejado y seguro."
   }
 ];
@@ -89,23 +86,23 @@ export default function LoginFeatureSlider() {
 
   return (
     <div className="w-full max-w-lg flex flex-col justify-between py-6">
-      {/* Dynamic Slide Content */}
-      <div className="relative min-h-[380px] flex flex-col justify-between">
-        {/* Floating Metric Preview Card */}
+      {/* Dynamic slide content */}
+      <div className="relative flex flex-col justify-between">
+        {/* Floating metric preview card */}
         <div 
-          key={`card-${currentSlide.id}`}
-          className="bg-white rounded-2xl p-6 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 ease-out transform"
+          key={currentSlide.id}
+          className="bg-white rounded-2xl p-6 border border-light-gray shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 ease-out transform h-55"
         >
-          {/* Card Header Badge */}
-          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-            <div className="flex items-center gap-2 text-slate-800 font-semibold text-sm">
-              <span className="p-1 rounded bg-[#346e57]/10 flex items-center justify-center">
+          {/* Card header badge */}
+          <div className="flex items-center justify-between pb-4 border-b border-light-gray">
+            <div className="flex items-center gap-2 text-main font-semibold text-sm">
+              <span className="p-1 rounded bg-mid-gray flex items-center justify-center">
                 {currentSlide.icon}
               </span>
               <span>{currentSlide.badge}</span>
             </div>
             { currentSlide.badgeStatus && 
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#e5f8ee] text-[#2d5a47]">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#e5f8ee] text-primary-dark">
                 {currentSlide.badgeStatus}
                 </span>
             }
@@ -115,75 +112,78 @@ export default function LoginFeatureSlider() {
           <div className="flex justify-between my-4 gap-3">
             {currentSlide.metrics.map((m, i) => (
               <div 
-                key={i} 
-                className="bg-light-gray rounded-xl p-3 border border-mid-gray text-center w-full"
+                key={m.label} 
+                className="bg-light-gray rounded-xl p-3 border border-mid-gray text-center w-full gap-4"
               >
+                <div className="flex items-center justify-center">
+                { m.metricIcon && <div>{m.metricIcon}</div>}
                 { m.swapOrder ? 
-                <div className="text-lg font-bold text-slate-800 tracking-tight">
+                <div className="text-lg font-bold text-main tracking-tight">
                   {m.value}{' '}
-                <div className="text-xs text-slate-500 font-medium mb-1">{m.label}</div>
-                  <span className="text-xs font-normal text-slate-400">{m.sub}</span>
+                <div className="text-xs text-muted font-medium mb-1">{m.label}</div>
+                  <span className="text-xs font-normal text-mid-gray">{m.sub}</span>
                 </div>
                 : 
-                <div className="text-lg font-bold text-slate-800 tracking-tight">
-                <div className="text-xs text-slate-500 font-medium mb-1">{m.label}</div>
+                <div className="text-lg font-bold text-dark-gray tracking-tight">
+                <div className="text-xs text-muted font-medium mb-1">{m.label}</div>
                   {m.value}{' '}
-                  <span className="text-xs font-normal text-slate-400">{m.sub}</span>
+                  <span className="text-xs font-normal text-muted">{m.sub}</span>
                 </div> }
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Card Footer */}
-          <div className="flex items-center justify-between pt-3 border-t border-slate-100 text-xs">
-            <span className="text-slate-500">{currentSlide.footerLabel}</span>
-            <span className="font-semibold text-slate-800">{currentSlide.footerValue}</span>
+          {/* Card footer */}
+          <div className="flex items-center justify-between pt-3 border-t border-light-gray text-xs">
+            <span className="text-muted">{currentSlide.footerLabel}</span>
+            <span className="font-semibold text-main">{currentSlide.footerValue}</span>
           </div>
         </div>
 
-        {/* Text Section (Title & Description) */}
+        {/* Title + description) */}
         <div 
           key={`text-${currentSlide.id}`}
           className="mt-8 transition-opacity duration-500 ease-out"
         >
-          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-2xl font-bold text-main tracking-tight">
             {currentSlide.title}
           </h2>
-          <p className="mt-3 text-sm text-slate-600 leading-relaxed max-w-md">
+          <p className="mt-3 text-sm text-muted leading-relaxed max-w-md">
             {currentSlide.description}
           </p>
         </div>
 
-        {/* Navigation Controls: Dots + Arrows */}
+        {/* Navigation controls: dots + arrows */}
         <div className="flex items-center justify-between pt-8">
-          {/* Pagination Indicators (Dots) */}
+          {/* Dots */}
           <div className="flex items-center gap-2">
             {slides.map((slide, idx) => (
               <button
                 key={slide.id}
                 onClick={() => setCurrentIndex(idx)}
-                aria-label={`Ir a diapositiva ${idx + 1}`}
+                aria-label={`Go to slide ${idx + 1}`}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   currentIndex === idx 
-                    ? 'w-6 bg-[#346e57]' 
-                    : 'w-2 bg-slate-300 hover:bg-slate-400'
+                    ? 'w-6 bg-primary-dark' 
+                    : 'w-2 bg-slate-300 hover:bg-muted'
                 }`}
               />
             ))}
           </div>
 
-          {/* Arrow Buttons */}
+          {/* Arrow buttons */}
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrev}
-              aria-label="Diapositiva anterior"
-              className="w-9 h-9 rounded-full border border-slate-200 bg-white text-slate-600 flex items-center justify-center hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm active:scale-95"
+              aria-label="Previous slide"
+              className="w-9 h-9 rounded-full border border-slate-200 bg-white text-muted flex items-center justify-center hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm active:scale-95"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={handleNext}
-              aria-label="Diapositiva siguiente"
+              aria-label="Next slide"
               className="w-9 h-9 rounded-full border border-slate-200 bg-white text-slate-600 flex items-center justify-center hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm active:scale-95"
             >
               <ChevronRight className="w-4 h-4" />
