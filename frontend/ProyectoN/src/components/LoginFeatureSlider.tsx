@@ -41,8 +41,8 @@ const slides: Slide[] = [
     icon: <ShieldCheck className="w-4 h-4 text-primary-dark" />,
     badge: "Fuentes de datos homologadas",
     metrics: [
-      { label: "Composición de alimentos básicos", value: "BEDCA España", swapOrder: true, metricIcon: <Database className="text-primary-dark"/> },
-      { label: "Composición de alimentos envasados", value: "Open Food Facts", swapOrder: true },
+      { label: "Composición de alimentos básicos", value: "BEDCA España", swapOrder: true, metricIcon: <Database className="text-primary-dark h-4 w-4"/> },
+      { label: "Composición de alimentos envasados", value: "Open Food Facts", swapOrder: true, metricIcon: <Database className="text-primary-dark h-4 w-4"/> },
     ],
     title: "Seguridad y datos homologados",
     description: "Datos de composición de alimentos provenientes de bases de datos oficiales BEDCA y Open Food Facts."
@@ -91,7 +91,7 @@ export default function LoginFeatureSlider() {
         {/* Floating metric preview card */}
         <div 
           key={currentSlide.id}
-          className="bg-white rounded-2xl p-6 border border-light-gray shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 ease-out transform h-55"
+          className="bg-white rounded-2xl p-6 border border-light-gray shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 ease-out transform h-65"
         >
           {/* Card header badge */}
           <div className="flex items-center justify-between pb-4 border-b border-light-gray">
@@ -110,24 +110,26 @@ export default function LoginFeatureSlider() {
 
           {/* Metrics grid */}
           <div className="flex justify-between my-4 gap-3">
-            {currentSlide.metrics.map((m, i) => (
+            {currentSlide.metrics.map((m, _) => (
               <div 
                 key={m.label} 
-                className="bg-light-gray rounded-xl p-3 border border-mid-gray text-center w-full gap-4"
+                className="bg-light-gray rounded-xl p-3 border border-mid-gray text-center w-full h-28 min-w-0 overflow-hidden flex items-center justify-center"
               >
-                <div className="flex items-center justify-center">
-                { m.metricIcon && <div>{m.metricIcon}</div>}
+                <div className="flex w-full min-w-0 items-center justify-center">
                 { m.swapOrder ? 
-                <div className="text-lg font-bold text-main tracking-tight">
-                  {m.value}{' '}
-                <div className="text-xs text-muted font-medium mb-1">{m.label}</div>
-                  <span className="text-xs font-normal text-mid-gray">{m.sub}</span>
+                <div className="flex w-full min-w-0 flex-col items-center">
+                  <div title={m.value} className="flex items-center justify-center gap-2">
+                    <div>{m.metricIcon}</div>
+                    <p className="w-full text-sm overflow-hidden text-ellipsis font-bold leading-tight text-main tracking-tight line-clamp-2 wrap-break-word">{m.value}</p>
+                    </div>
+                  <div title={m.label} className=" mt-4 h-8 w-full overflow-hidden text-ellipsis text-xs text-muted font-medium line-clamp-2">{m.label}</div>
+                  <span title={m.sub} className="h-4 w-full truncate text-xs font-normal text-muted">{m.sub}</span>
                 </div>
                 : 
-                <div className="text-lg font-bold text-dark-gray tracking-tight">
-                <div className="text-xs text-muted font-medium mb-1">{m.label}</div>
-                  {m.value}{' '}
-                  <span className="text-xs font-normal text-muted">{m.sub}</span>
+                <div className="flex w-full min-w-0 flex-col items-center">
+                  <div title={m.label} className="h-8 w-full overflow-hidden text-ellipsis text-xs text-muted font-medium line-clamp-2">{m.label}</div>
+                  <div title={m.value} className="h-8 w-full overflow-hidden text-ellipsis text-base font-bold leading-tight text-dark-gray tracking-tight line-clamp-2 wrap-break-word">{m.value}</div>
+                  <span title={m.sub} className="h-4 w-full truncate text-xs font-normal text-muted">{m.sub}</span>
                 </div> }
                 </div>
               </div>
@@ -149,7 +151,7 @@ export default function LoginFeatureSlider() {
           <h2 className="text-2xl font-bold text-main tracking-tight">
             {currentSlide.title}
           </h2>
-          <p className="mt-3 text-sm text-muted leading-relaxed max-w-md">
+          <p className="mt-3 text-xs text-muted leading-relaxed max-w-md">
             {currentSlide.description}
           </p>
         </div>

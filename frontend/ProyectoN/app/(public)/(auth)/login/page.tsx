@@ -1,13 +1,14 @@
 "use client";
 
-import LoginFeatureSlider from "@/src/components/LogInSlider";
+import LoginFeatureSlider from "@/src/components/LoginFeatureSlider";
+import LoginForm from "@/src/components/LoginForm";
 import Image from "next/image";
 
 function LoginPage() {
   return (
     <main className="flex w-full min-h-screen justify-center items-center">
       { /* Left container */ }
-      <div className="w-full max-w-[520px] h-[610.98px] bg-primary-light border border-mid-gray p-14 rounded-bl-md rounded-tl-md">
+      <div className="w-full max-w-130 h-[610px] bg-primary-light border border-mid-gray p-14 rounded-bl-md rounded-tl-md">
         {/* Logo, title, description and version header */}
         <div className="max-w-lg flex justify-between items-center">
           <div className="flex items-center gap-3">
@@ -30,9 +31,7 @@ function LoginPage() {
        <LoginFeatureSlider />
       </div>
       { /* Right container */ }
-      <div className="w-full max-w-[520px] h-[610.98px] bg-white border border-mid-gray rounded-br-md rounded-tr-md">
-        
-      </div>
+      <LoginForm />
     </main>
   );
 }

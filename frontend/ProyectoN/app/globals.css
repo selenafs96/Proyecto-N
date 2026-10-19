@@ -11,7 +11,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-plus-jakarta), sans-serif;
+  --font-sans: var(--font-plus-jakarta-sans), sans-serif;
   --color-primary-dark: var(--dark-green);
   --color-primary-mid: var(--mid-green);
   --color-primary-light: var(--light-green);
