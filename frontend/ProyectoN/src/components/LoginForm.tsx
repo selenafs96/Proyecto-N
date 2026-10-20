@@ -47,7 +47,7 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
   };
 
     return (
-      <div className=" relative w-full max-w-130 h-[610px] bg-white border border-mid-gray rounded-br-md rounded-tr-md pt-6 px-6">
+      <div className=" relative w-full max-w-130 h-[610px] bg-white border border-mid-gray rounded-md lg:rounded-l-none rounded-tr-md pt-6 px-6">
       <button
           type="button"
           aria-label="Cerrar"
@@ -66,7 +66,7 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
                     <p className="text-xs">Continuar con Google</p>
                 </Link>
                 {/* Formulario */}
-                <form className="flex flex-col gap-4">
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                     { /* O continuar con email */ }
                     <div className="mt-6 flex items-center gap-3">
                         <span aria-hidden="true" className="flex-1 border-t border-mid-gray" />
@@ -91,12 +91,17 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
                             <input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" className="text-sm w-full px-4 py-1.5" />
                             <Eye className="text-primary-dark/50"/>
                         </div>
+                        {errorMessage && (
+                        <p role="alert" className="text-sm text-red-600">
+                          {errorMessage}
+                        </p>
+                        )}
                         { /* Remember me */ }
                         <div className="flex gap-2">
                           <input type="checkbox" className="accent-primary-mid" />
                           <p className="text-xs text-muted">Recordar inicio de sesión en este equipo</p>
                         </div>
-                        <button type="submit" className="bg-primary-dark text-white rounded-lg w-full drop-shadow-xs px-4 py-2 text-sm mt-6">Iniciar sesión</button>
+                        <button type="submit" disabled={isLoading} aria-busy={isLoading} className="bg-primary-dark text-white rounded-lg w-full drop-shadow-xs px-4 py-2 text-sm mt-6">{isLoading ? "Iniciando sesión..." : "Iniciar sesión"}</button>
                         <p className="text-muted text-xs">¿No tienes una cuenta? <span className="font-semibold text-primary-dark">Solicita acceso</span></p>
                     </div>
                     <p className="text-xs text-muted mt-6">Al continuar aceptas los <span className="text-primary-dark font-medium underline">términos y condiciones de privacidad</span>. Consulta nuestra <span className="text-primary-dark underline font-medium">política de privacidad</span>.</p>

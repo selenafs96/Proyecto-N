@@ -111,7 +111,7 @@ export default function LoginFeatureSlider() {
   const currentSlide = slides[currentIndex];
 
   return (
-    <div className="w-full max-w-130 h-[610px] bg-primary-light border border-mid-gray p-14 rounded-bl-md rounded-tl-md">
+    <div className="hidden lg:block w-full max-w-130 h-[610px] bg-primary-light border border-mid-gray p-14 rounded-bl-md rounded-tl-md">
       {/* Logo, title, description and version header */}
       <div className="max-w-lg flex justify-between items-center">
         <div className="flex items-center gap-3">
