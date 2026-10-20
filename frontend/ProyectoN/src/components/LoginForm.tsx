@@ -17,13 +17,12 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault(); // Evita que la página se recargue
     setErrorMessage(""); // Limpiamos errores previos
     setIsLoading(true);
 
     try {
-      // Simulación de llamada a tu backend / API de autenticación
       // const response = await fetch('/api/login', { ... });
       
       await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulación de espera (1.5s)
