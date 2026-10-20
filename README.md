@@ -3,7 +3,7 @@
 Plataforma web con .NET (Backend) y Next.js (Frontend), diseñada específicamente para optimizar el flujo de trabajo diario de un profesional de la nutrición.
 El proyecto se encuentra en desarrollo activo.
 
-## Funcionalidades previstas:
+## Funcionalidades:
 - Gestión integral de pacientes (registro y administración de sus perfiles clínicos y seguimiento de la evolución física).
 - Creación y asignación de planes nutricionales (diseño de dietas personalizadas organizadas por días y comidas).
 - Autenticación y seguridad: sistema de control de acceso mediante tokens JWT.
