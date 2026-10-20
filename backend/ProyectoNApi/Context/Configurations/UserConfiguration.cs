@@ -23,8 +23,6 @@ namespace ProyectoNApi.Context.Configurations
             builder.Property(u => u.PhoneNumber).IsRequired().HasMaxLength(16);
 
             builder.Property(u => u.PhotoUrl).HasMaxLength(2048);
-
-           
         }
     }
 }

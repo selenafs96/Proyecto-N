@@ -4,6 +4,8 @@ using FluentValidation;
 
 using ProyectoNApi.Context;
 using ProyectoNApi.Services;
+using Microsoft.AspNetCore.Identity;
+using ProyectoNApi.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddDbContext<ProyectoNDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Add OpenAPI services
 builder.Services.AddOpenApi();
@@ -33,6 +36,28 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddControllers();
 
+// Add configuration of ASP.NET Core Identity
+builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+})
+.AddEntityFrameworkStores<ProyectoNDbContext>()
+.AddDefaultTokenProviders();
+
+// Add authentication system using cookies
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = IdentityConstants.ApplicationScheme; //HttpOnly Cookies to keep the session active 
+    options.DefaultSignInScheme = IdentityConstants.ExternalScheme; // Temporary while the user is in the process of authenticating with an external server 
+});
+// .AddGoogle(googleOptions =>
+// {
+//     googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+//     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+// });
+
 var app = builder.Build();
 
 // Middleware from Scalar and OpenAPI only in Development
@@ -50,6 +75,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication(); // Read the HttpOnly cookie from the browser and authenticates the user.
+app.UseAuthorization(); // Checks the user permissions.
 
 // Activation of CORS after build
 app.UseCors("AllowNextJs");
