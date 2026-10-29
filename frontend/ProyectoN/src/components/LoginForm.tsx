@@ -3,11 +3,19 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Router from "next/router";
-import { Eye } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
 
 function LoginForm({onClose} : { readonly onClose: () => void}) {
 
+  const router = useRouter();
+
+  // States for password visibility
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  function handlePasswordVisibility() {
+    setPasswordVisible(prev => !prev);
+  }
 
   // States fot text inputs
   const [email, setEmail] = useState("");
@@ -18,8 +26,8 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Evita que la página se recargue
-    setErrorMessage(""); // Limpiamos errores previos
+    e.preventDefault();
+    setErrorMessage("");
     setIsLoading(true);
 
     try {
@@ -29,8 +37,7 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
 
       // Ejemplo de validación simple
       if (email === "admin@clinica.com" && password === "123456") {
-        // Redirigir al dashboard si las credenciales son correctas
-        Router.push("/dashboard");
+        router.push("/dashboard");
       } else {
         throw new Error("El correo electrónico o la contraseña son incorrectos.");
       }
@@ -87,11 +94,13 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
                             <p className="text-primary-dark font-semibold text-xs">¿Olvidaste tu contraseña?</p>
                         </div>
                         <div className="flex justify-between text-sm border border-mid-gray w-full rounded-lg drop-shadow-xs bg-white pr-3 items-center">
-                            <input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" className="text-sm w-full px-4 py-1.5" />
-                            <Eye className="text-primary-dark/50"/>
+                            <input id="password" type={passwordVisible ? "text" : "password"} required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" className="text-sm w-full px-4 py-1.5" />
+                            <button type="button" onClick={handlePasswordVisibility} aria-label={ passwordVisible ? "Ocultar contraseña" : "Mostrar contraseña" }>
+                              { passwordVisible ? <EyeOff className="text-primary-dark/50"/> : <Eye className="text-primary-dark/50"/>}
+                            </button>
                         </div>
                         {errorMessage && (
-                        <p role="alert" className="text-sm text-red-600">
+                        <p role="alert" className="text-xs text-red-600">
                           {errorMessage}
                         </p>
                         )}
@@ -103,7 +112,7 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
                         <button type="submit" disabled={isLoading} aria-busy={isLoading} className="bg-primary-dark text-white rounded-lg w-full drop-shadow-xs px-4 py-2 text-sm mt-6">{isLoading ? "Iniciando sesión..." : "Iniciar sesión"}</button>
                         <p className="text-muted text-xs">¿No tienes una cuenta? <span className="font-semibold text-primary-dark">Solicita acceso</span></p>
                     </div>
-                    <p className="text-xs text-muted mt-6">Al continuar aceptas los <span className="text-primary-dark font-medium underline">términos y condiciones de privacidad</span>. Consulta nuestra <span className="text-primary-dark underline font-medium">política de privacidad</span>.</p>
+                    <p className="text-[0.55rem] text-muted mt-6">Al continuar aceptas los <span className="text-primary-dark font-medium underline">términos y condiciones de privacidad</span>. Consulta nuestra <span className="text-primary-dark underline font-medium">política de privacidad</span>.</p>
                 </form>
             </div>
         </div>
