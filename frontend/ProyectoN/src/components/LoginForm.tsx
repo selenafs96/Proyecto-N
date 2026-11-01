@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, X } from "lucide-react";
 
 function LoginForm({onClose} : { readonly onClose: () => void}) {
 
@@ -53,15 +53,15 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
   };
 
     return (
-      <div className=" relative w-full max-w-130 h-[610px] bg-white border border-mid-gray rounded-md lg:rounded-l-none rounded-tr-md pt-6 px-6">
+      <div className=" relative w-full max-w-130 lg:h-[610px] bg-white border border-mid-gray rounded-md lg:rounded-l-none rounded-tr-md pt-6 px-6">
       <button
           type="button"
           aria-label="Cerrar"
-          className="absolute -top-4 -right-4 z-20 rounded-full bg-white p-2 shadow-md h-10 w-10"
+          className="absolute -top-4 -right-4 z-20 rounded-full bg-white p-2 shadow-md h-8 w-8"
           onClick={ onClose }
-      >X</button>
-            <p className="w-full text-muted text-xs text-right">¿Nuevo en la plataforma? <span className="text-xs font-semibold text-primary-dark">Solicitar demo</span></p>
-            <div className="flex flex-col gap-4 justify-center h-full p-14">
+      ><X className="w-4 h-4"/></button>
+            <p className="w-full text-muted text-[0.55rem] text-right">¿Nuevo en la plataforma? <span className="text-[0.55rem] font-semibold text-primary-dark">Solicitar demo</span></p>
+            <div className="flex flex-col gap-4 justify-center lg:h-full p-6 sm:p-8 lg:p-14">
               <div>
                 <h2 className="font-bold text-3xl text-main">Bienvenido de nuevo</h2>
                 <p className="text-muted text-xs">Introduce tus credenciales para acceder a tu consulta clínica</p>
@@ -85,7 +85,7 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
                         <label htmlFor="email" className="text-xs font-semibold text-main">
                             Email profesional
                         </label>
-                        <input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="nutricionista@clinica.com" className="text-sm border border-mid-gray w-full px-4 py-1.5 rounded-lg drop-shadow-xs bg-white" />
+                        <input id="email" name="email" autoComplete="username" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="nutricionista@clinica.com" className="text-sm border border-mid-gray w-full px-4 py-1.5 rounded-lg drop-shadow-xs bg-white focus: outline-none" />
                         {/* Password */}
                         <div className="flex justify-between">
                             <label htmlFor="password" className="text-xs font-semibold text-main">
@@ -94,7 +94,7 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
                             <p className="text-primary-dark font-semibold text-xs">¿Olvidaste tu contraseña?</p>
                         </div>
                         <div className="flex justify-between text-sm border border-mid-gray w-full rounded-lg drop-shadow-xs bg-white pr-3 items-center">
-                            <input id="password" type={passwordVisible ? "text" : "password"} required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" className="text-sm w-full px-4 py-1.5" />
+                            <input id="password" name="password" autoComplete="current-password" type={passwordVisible ? "text" : "password"} required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" className="text-sm w-full px-4 py-1.5 focus: outline-none" />
                             <button type="button" onClick={handlePasswordVisibility} aria-label={ passwordVisible ? "Ocultar contraseña" : "Mostrar contraseña" }>
                               { passwordVisible ? <EyeOff className="text-primary-dark/50"/> : <Eye className="text-primary-dark/50"/>}
                             </button>
@@ -106,8 +106,8 @@ function LoginForm({onClose} : { readonly onClose: () => void}) {
                         )}
                         { /* Remember me */ }
                         <div className="flex gap-2">
-                          <input type="checkbox" className="accent-primary-mid" />
-                          <p className="text-xs text-muted">Recordar inicio de sesión en este equipo</p>
+                          <input id="remember" type="checkbox" className="accent-primary-mid" />
+                          <label htmlFor="remember" className="text-xs text-muted">Recordar inicio de sesión en este equipo</label>
                         </div>
                         <button type="submit" disabled={isLoading} aria-busy={isLoading} className="bg-primary-dark text-white rounded-lg w-full drop-shadow-xs px-4 py-2 text-sm mt-6">{isLoading ? "Iniciando sesión..." : "Iniciar sesión"}</button>
                         <p className="text-muted text-xs">¿No tienes una cuenta? <span className="font-semibold text-primary-dark">Solicita acceso</span></p>
