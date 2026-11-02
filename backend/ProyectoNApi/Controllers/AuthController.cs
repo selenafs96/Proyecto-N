@@ -20,7 +20,7 @@ namespace ProyectoNApi.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            AuthResult authResult = await _authService.RegisterAsync(registerDto);
+            AuthResponse authResult = await _authService.RegisterAsync(registerDto);
             if (!authResult.Success)
             {
                 return BadRequest(authResult.Errors);
