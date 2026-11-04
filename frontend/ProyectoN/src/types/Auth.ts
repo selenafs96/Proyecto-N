@@ -10,7 +10,8 @@ export interface UserResponse {
 
 export interface LoginRequest {
     email: string,
-    password: string
+    password: string,
+    rememberMe: boolean
 }
 
 export interface AuthError {

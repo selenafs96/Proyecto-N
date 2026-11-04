@@ -70,7 +70,7 @@ namespace ProyectoNApi.Services
             }
 
             // Authomatically  generates the httpOnly cookie and logs in
-            await _signInManager.SignInAsync(user, isPersistent: true);
+            await _signInManager.SignInAsync(user, isPersistent: false);
             return new AuthResponse
                 {
                     Success = true,
@@ -82,7 +82,7 @@ namespace ProyectoNApi.Services
         public async Task<AuthResponse> LoginAsync(LoginDto loginDto)
         {
             // TODO change lockoutOnFailure value to improve security ?
-            var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, isPersistent: true, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, isPersistent: loginDto.RememberMe, lockoutOnFailure: false);
 
             if (!result.Succeeded)
             {

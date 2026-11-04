@@ -11,16 +11,17 @@ import axios from "axios";
 function LoginForm({ onClose }: { readonly onClose: () => void }) {
   const router = useRouter();
 
-  // States for password visibility
+  // State for password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   function handlePasswordVisibility() {
     setPasswordVisible((prev) => !prev);
   }
 
-  // States fot text inputs
+  // States for inputs
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   // States for user experience
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,7 @@ function LoginForm({ onClose }: { readonly onClose: () => void }) {
 
     try {
       const authService = new AuthService();
-      await authService.login({ email, password });
+      await authService.login({ email, password, rememberMe });
       onClose();
       router.push("/dashboard");
 
@@ -162,6 +163,8 @@ function LoginForm({ onClose }: { readonly onClose: () => void }) {
                 id="remember"
                 type="checkbox"
                 className="accent-primary-mid"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
               />
               <label htmlFor="remember" className="text-xs text-muted">
                 Recordar inicio de sesión en este equipo
