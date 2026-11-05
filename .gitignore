@@ -8,6 +8,7 @@ Thumbs.db
 *.userprefs
 .vs/
 README
+ProyectoN.code-workspace
 
 # =========================================
 # BACKEND (.NET)

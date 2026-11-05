@@ -2,7 +2,7 @@ using ProyectoNApi.Entities;
 
 namespace ProyectoNApi.Models.Dtos
 {
-    public class AuthResult
+    public class AuthResponse
     {
         public bool Success { get; set; }
         public IEnumerable<object>? Errors { get; set; }

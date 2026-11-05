@@ -1,0 +1,23 @@
+export interface UserResponse {
+    dni: string,
+    name: string,
+    lastName: string,
+    email: string,
+    phoneNumber: string,
+    photoUrl?: string
+}
+
+export interface LoginRequest {
+    email: string,
+    password: string,
+    rememberMe: boolean
+}
+
+export interface AuthError {
+    propertyName: string,
+    errorMessage:string
+}
+
+export interface LoginResponse {
+    message: string
+}

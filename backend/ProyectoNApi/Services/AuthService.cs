@@ -9,8 +9,8 @@ namespace ProyectoNApi.Services
 {
     public interface IAuthService
     {
-        Task<AuthResult> RegisterAsync(RegisterDto registerDto);
-        Task<AuthResult> LoginAsync(LoginDto loginDto);
+        Task<AuthResponse> RegisterAsync(RegisterDto registerDto);
+        Task<AuthResponse> LoginAsync(LoginDto loginDto);
         Task LogoutAsync();
         Task<UserDto?> GetCurrentUserAsync(ClaimsPrincipal identity);
 
@@ -29,7 +29,7 @@ namespace ProyectoNApi.Services
             _userValidator = userValidator;
         }
 
-        public async Task<AuthResult> RegisterAsync(RegisterDto registerDto)
+        public async Task<AuthResponse> RegisterAsync(RegisterDto registerDto)
         {
              // Creates user entity using RegisterDto data
             var user = new User
@@ -48,7 +48,7 @@ namespace ProyectoNApi.Services
             if (!validationResult.IsValid)
             {
                 var errors = validationResult.Errors.Select(e => new { e.PropertyName, e.ErrorMessage });
-                return new AuthResult
+                return new AuthResponse
                 {
                     Success = false,
                     Errors = errors,
@@ -61,7 +61,7 @@ namespace ProyectoNApi.Services
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(e => new { PropertyName = e.Code, ErrorMessage = e.Description });
-                return new AuthResult
+                return new AuthResponse
                 {
                     Success = false,
                     Errors = errors,
@@ -70,8 +70,8 @@ namespace ProyectoNApi.Services
             }
 
             // Authomatically  generates the httpOnly cookie and logs in
-            await _signInManager.SignInAsync(user, isPersistent: true);
-            return new AuthResult
+            await _signInManager.SignInAsync(user, isPersistent: false);
+            return new AuthResponse
                 {
                     Success = true,
                     Errors = null,
@@ -79,14 +79,14 @@ namespace ProyectoNApi.Services
                 };
         }
 
-        public async Task<AuthResult> LoginAsync(LoginDto loginDto)
+        public async Task<AuthResponse> LoginAsync(LoginDto loginDto)
         {
             // TODO change lockoutOnFailure value to improve security ?
-            var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, isPersistent: true, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, isPersistent: loginDto.RememberMe, lockoutOnFailure: false);
 
             if (!result.Succeeded)
             {
-                return new AuthResult
+                return new AuthResponse
                 {
                     Success = false,
                     Errors =
@@ -103,7 +103,7 @@ namespace ProyectoNApi.Services
 
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
 
-            return new AuthResult
+            return new AuthResponse
             {
                 Success = true,
                 Errors = null,

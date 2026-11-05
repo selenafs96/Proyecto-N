@@ -27,7 +27,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:3000", "https://localhost:3000") // My Next.js port
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials();
         });
 });
 
@@ -59,6 +60,8 @@ builder.Services.AddAuthentication(options =>
 // });
 
 var app = builder.Build();
+// Activation of CORS after build
+app.UseCors("AllowNextJs");
 
 // Middleware from Scalar and OpenAPI only in Development
 if (app.Environment.IsDevelopment())
@@ -68,7 +71,7 @@ if (app.Environment.IsDevelopment())
     {
         options
             .WithTitle("ProyectoNApi")
-            .WithTheme(ScalarTheme.Mars); // Puedes elegir temas molones
+            .WithTheme(ScalarTheme.Mars);
     });
 
      app.MapOpenApi(); // Maps the OpenAPI endpoint
@@ -79,9 +82,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication(); // Read the HttpOnly cookie from the browser and authenticates the user.
 app.UseAuthorization(); // Checks the user permissions.
 
-// Activation of CORS after build
-app.UseCors("AllowNextJs");
-app.MapControllers();
+app.MapControllers(); // Connects the request with the corresponding controller
 
 app.Run();
 
