@@ -1,3 +1,4 @@
+import axios from "axios";
 import { apiClient } from "../lib/axios";
 import type { LoginResponse, LoginRequest, UserResponse } from "../types/Auth";
 
@@ -17,9 +18,13 @@ class AuthService {
         try{
             const response = await apiClient.get<UserResponse>(this.apiUrl + "/me");
             return response.data;
-        } catch (error) {
-            return null;
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response?.status === 401) {
+                return null; // Not authenticated
+            }
+            throw error; // server error
         }
+
     }
 }
 

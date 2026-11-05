@@ -4,12 +4,15 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, X } from "lucide-react";
-import AuthService from "../services/authService";
 import axios from "axios";
+import { Eye, EyeOff, X } from "lucide-react";
+
+import AuthService from "../services/authService";
+import { useAuth } from "../contexts/AuthContext";
 
 function LoginForm({ onClose }: { readonly onClose: () => void }) {
   const router = useRouter();
+  const { refreshUser } = useAuth();
 
   // State for password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -34,19 +37,42 @@ function LoginForm({ onClose }: { readonly onClose: () => void }) {
 
     try {
       const authService = new AuthService();
-      await authService.login({ email, password, rememberMe });
+
+      try {
+        await authService.login({ email, password, rememberMe });
+      } catch (error: unknown) {
+        if (axios.isAxiosError<{ message?: string }>(error)) {
+          setErrorMessage(
+            error.response?.data?.message ??
+              "El correo electrónico o la contraseña son incorrectos.",
+          );
+        } else {
+          setErrorMessage("No se pudo iniciar sesión. Inténtalo de nuevo.");
+        }
+
+        return;
+      }
+
+      // checks /me and refreshes user state in AuthContext
+      try {
+        const currentUser = await refreshUser();
+
+        if (!currentUser) {
+          setErrorMessage(
+            "Has iniciado sesión, pero no se pudo recuperar tu usuario. Inténtalo de nuevo.",
+          );
+          return;
+        }
+      } catch {
+        setErrorMessage(
+          "Has iniciado sesión, pero no se pudo comprobar tu sesión. Inténtalo de nuevo.",
+        );
+        return;
+      }
+
+      // Valid credentials and context correctly updated
       onClose();
       router.push("/dashboard");
-
-    } catch (err: unknown) {
-      if (axios.isAxiosError<{ message?: string }>(err)) {
-        setErrorMessage(
-          err.response?.data?.message ??
-            "El correo electrónico o la contraseña son incorrectos.",
-        );
-      } else {
-        setErrorMessage("Ha ocurrido un error inesperado. Inténtalo de nuevo.");
-      }
     } finally {
       setIsLoading(false);
     }

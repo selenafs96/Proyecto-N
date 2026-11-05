@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 using ProyectoNApi.Services;
 using ProyectoNApi.Models.Dtos;
@@ -16,6 +17,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
+    [Authorize] // User must be authenticated, returns 401 if not
     [HttpGet("{id}")]
     public async Task<ActionResult<UserDto>> GetUserById([FromRoute] int id)
     {

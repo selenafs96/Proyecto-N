@@ -1,54 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
 
-import AuthService from "@/src/services/authService";
+
+import { useAuth } from "@/src/contexts/AuthContext";
 
 export default function PrivateLayout({ children }: LayoutProps<"/">) {
-const router = useRouter();
-  const [checkingSession, setCheckingSession] = useState(true)
+  const router = useRouter();
+  const { user, loading, error } = useAuth();
 
   useEffect(() => {
-    let cancelled = false;
+    if (!loading && !error && !user) {
+      router.replace("/");
+    }
+  }, [loading, error, user, router]);
 
-    async function checkSession() {
-      const authService = new AuthService();
-      const user = await authService.getCurrentUser();
-
-      if(cancelled) return;
-
-      if(user) {
-        setCheckingSession(false);
-      } else {
-        router.replace("/");
-      }
+  if (loading) {
+      return (
+        <main className="min-h-screen flex items-center justify-center gap-2">
+          <LoaderCircle
+            className="h-8 w-8 animate-spin text-primary-dark"
+            aria-hidden="true"
+          />
+          <p>Comprobando sesión...</p>
+        </main>
+      );
     }
 
-    void checkSession();
-
-    // Cleaning function: if the user moves to another page, stops the checking
-    return () => {
-      cancelled = true;
+    if (error) {
+      return (
+        <main className="min-h-screen flex items-center justify-center gap-2">
+          <p role="alert">{error}</p>
+        </main>
+      );
     }
-  }, [router])
 
-  if(checkingSession) {
-    return  (
-      <main className="min-h-screen flex items-center justify-center gap-2">
-        <LoaderCircle
-        className="h-8 w-8 animate-spin text-primary-dark"
-        aria-hidden="true"
-      />
-        <p>Comprobando sesión...</p>
-      </main>
-    )
-  }
+    if (!user) {
+      return null;
+    }
 
-  return (
-    <>
-    {children}
-    </>
-  );
+  return <>{children}</>;
 }
