@@ -1,5 +1,5 @@
 import { apiClient } from "../lib/axios";
-import { UserResponse } from "../types/UserResponse";
+import { UserResponse } from "../types/Auth";
 
 class UserService {
     private apiUrl: string;
