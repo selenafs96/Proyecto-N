@@ -3,7 +3,8 @@
 :root {
     --light-gray: #F8FAFC;
     --mid-gray: #F1F5F9;
-    --dark-green: #346E57;
+    --dark-green: #005F49;
+    --extra-dark-green: #004233;
     --mid-green: #D7E7DE;
     --light-green: #EEF6F2;
     --black: #1E293B;
@@ -12,6 +13,7 @@
 
 @theme inline {
   --font-sans: var(--font-plus-jakarta-sans), sans-serif;
+  --color-primary-extra-dark: var(--extra-dark-green);
   --color-primary-dark: var(--dark-green);
   --color-primary-mid: var(--mid-green);
   --color-primary-light: var(--light-green);
