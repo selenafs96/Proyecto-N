@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import NavigationOption from "./NavigationOption";
 
 function Sidebar() {
   const [collapsed, setCollapsed] = useState(true);
@@ -59,131 +60,15 @@ function Sidebar() {
           className={`flex flex-col justify-center ${collapsed ? "px-2" : "px-4"} pt-6 gap-2`}
         >
           {/* Panel principal */}
-          <Link
-            href="/dashboard"
-            className={`flex items-center transition-colors duration-200 hover:bg-primary-mid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark ${
-              collapsed
-                ? "h-10 w-10 self-center justify-center rounded-full bg-primary-light"
-                : "gap-3 rounded-2xl bg-primary-light px-2.5 py-3"
-            }`}
-          >
-            <Image
-              src="/dashboard.svg"
-              alt="Dashboard icon"
-              width={collapsed ? 18 : 14}
-              height={collapsed ? 18 : 14}
-              className="shrink-0"
-            />
-              {!collapsed && (
-                <motion.span
-                  animate={{ opacity: collapsed ? 0 : 1, width: collapsed ? 0 : "auto" }}
-                  transition={{ duration: 0.2 }}
-                  className="whitespace-nowrap overflow-hidden text-primary-extra-dark font-semibold text-base"
-                >
-                  Panel principal
-                </motion.span>
-              )}
-          </Link>
+          <NavigationOption collapsed={collapsed} icon="/dashboard.svg" text="Panel principal"/>
           {/* Pacientes */}
-          <Link
-            href="/dashboard"
-            className={`flex items-center transition-colors duration-200 hover:bg-primary-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark ${
-              collapsed
-                ? "h-10 w-10 self-center justify-center rounded-full hover:bg-primary-light"
-                : "gap-3 rounded-2xl bg-white px-2.5 py-3"
-            }`}
-          >
-            <Image
-              src="/patients.svg"
-              alt="Patients icon"
-              width={collapsed ? 18 : 14}
-              height={collapsed ? 16 : 12}
-              className="shrink-0"
-            />
-            {!collapsed && (
-              <motion.span 
-                animate={{ opacity: collapsed ? 0 : 1, width: collapsed ? 0 : "auto" }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden whitespace-nowrap text-primary-extra-dark font-medium text-base">
-                Pacientes
-              </motion.span>
-            )}
-          </Link>
+          <NavigationOption collapsed={collapsed} icon="dashboard.svg" text="Pacientes"/>
           {/* Planes nutricionales */}
-          <Link
-            href="/dashboard"
-            className={`flex items-center transition-colors duration-200 hover:bg-primary-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark ${
-              collapsed
-                ? "h-10 w-10 self-center justify-center rounded-full hover:bg-primary-light"
-                : "gap-3 rounded-2xl bg-white px-2.5 py-3"
-            }`}
-          >
-            <Image
-              src="/nutritional-plans.svg"
-              alt="Nutritional plans icon"
-              width={collapsed ? 16 : 14}
-              height={collapsed ? 19 : 17}
-              className="shrink-0"
-            />
-            {!collapsed && (
-              <motion.span 
-                animate={{ opacity: collapsed ? 0 : 1, width: collapsed ? 0 : "auto" }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden whitespace-nowrap text-primary-extra-dark font-medium text-base">
-                Planes nutricionales
-              </motion.span>
-            )}
-          </Link>
+          <NavigationOption collapsed={collapsed} icon="dashboard.svg" text="Planes nutricionales"/>
           {/* Recetas */}
-          <Link
-            href="/dashboard"
-            className={`flex items-center transition-colors duration-200 hover:bg-primary-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark ${
-              collapsed
-                ? "h-10 w-10 self-center justify-center rounded-full hover:bg-primary-light"
-                : "gap-3 rounded-2xl bg-white px-2.5 py-3"
-            }`}
-          >
-            <Image
-              src="/recipes.svg"
-              alt="Recipes icon"
-              width={collapsed ? 18 : 14}
-              height={collapsed ? 18 : 15}
-              className="shrink-0"
-            />
-            {!collapsed && (
-              <motion.span 
-                animate={{ opacity: collapsed ? 0 : 1, width: collapsed ? 0 : "auto" }}
-                transition={{ duration: 0.2 }}
-                className="text-primary-extra-dark font-medium text-base">
-                Recetas
-              </motion.span>
-            )}
-          </Link>
+          <NavigationOption collapsed={collapsed} icon="dashboard.svg" text="Recetas"/>
           {/* Consultas y agenda */}
-          <Link
-            href="/dashboard"
-            className={`flex items-center transition-colors duration-200 hover:bg-primary-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark ${
-              collapsed
-                ? "h-10 w-10 self-center justify-center rounded-full hover:bg-primary-light"
-                : "gap-3 rounded-2xl bg-white px-2.5 py-3"
-            }`}
-          >
-            <Image
-              src="/agenda.svg"
-              alt="Appointments and agenda icon"
-              width={collapsed ? 16 : 14}
-              height={collapsed ? 18 : 16}
-              className="shrink-0"
-            />
-            {!collapsed && (
-              <motion.span 
-                animate={{ opacity: collapsed ? 0 : 1, width: collapsed ? 0 : "auto" }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden whitespace-nowrap text-primary-extra-dark font-medium text-base">
-                Consultas y agenda
-              </motion.span>
-            )}
-          </Link>
+          <NavigationOption collapsed={collapsed} icon="dashboard.svg" text="Consultas y agenda"/>
         </div>
       </div>
       {/* Sidebar footer */}
